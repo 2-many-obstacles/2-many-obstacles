@@ -55,6 +55,7 @@ export function NavigationBox(props: {onNavigate: (route: any) => void}) {
                             format: 'geojson',
                         })
                         props.onNavigate(response)
+                        map.current?.fitBounds(response.bbox, { padding: 200 })
                     }}
                     placeholder="Enter destination"
                     value={destinationValue}
