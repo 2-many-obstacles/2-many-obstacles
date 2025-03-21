@@ -1,3 +1,57 @@
+interface ExtraInfo<T> {
+    values: [number, number, T][];
+    summary: { value: T, distance: number, duration: number }[];
+}
+
+enum SurfaceType {
+    Unknown = 0,
+    Paved = 1,
+    Unpaved = 2,
+    Asphalt = 3,
+    Concrete = 4,
+    Cobblestone = 5,
+    Metal = 6,
+    Wood = 7,
+    CompactedGravel = 8,
+    FineGravel = 9,
+    Dirt = 10,
+    Ground = 11,
+    Ice = 12,
+    PavingStones = 13,
+    Sand = 14,
+    Woodchips = 15,
+    Grass = 16,
+    GrassPaver = 17,
+}
+
+enum WayType {
+    Unknown = 0,
+    StateRoad = 1,
+    Road = 2,
+    Street = 3,
+    Path = 4,
+    Track = 5,
+    Cycleway = 6,
+    Footway = 7,
+    Steps = 8,
+    Ferry = 9,
+    Construction = 10,
+}
+
+enum SteepnessType {
+    Decline16 = -5,
+    Decline10 = -4,
+    Decline7 = -3,
+    Decline4 = -2,
+    Decline1 = -1,
+    Flat = 0,
+    Incline1 = 1,
+    Incline4 = 2,
+    Incline7 = 3,
+    Incline10 = 4,
+    Incline16 = 5,
+}
+
 export interface RouteProperties {
     segments: {
         distance: number
@@ -12,7 +66,9 @@ export interface RouteProperties {
         }[]
     }[]
     extras: {
-        roadaccessrestrictions: unknown; // TODO
+        surface: ExtraInfo<SurfaceType>;
+        waytypes: ExtraInfo<WayType>;
+        steepness: ExtraInfo<SteepnessType>;
     }
     warnings: {
         code: number
