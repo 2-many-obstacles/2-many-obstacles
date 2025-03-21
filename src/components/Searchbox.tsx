@@ -1,7 +1,7 @@
 import { useMap } from 'react-map-gl/mapbox'
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-
+import { MAPBOX_ACCESS_TOKEN } from '../pages/index';
 const SearchBox = dynamic(() => import('@mapbox/search-js-react').then(mod => mod.SearchBox), {
     ssr: false,
 })
@@ -19,7 +19,7 @@ export function Searchbox() {
     return (
         <div className="flex flex-col gap-2">
             <SearchBox
-                accessToken="pk.eyJ1Ijoic2tuMHR0IiwiYSI6ImNrd25lM2prMjI1MGgyd21kbDRuOTRib24ifQ.JLDxqFK3HC9rKzQIBCxMWg"
+                accessToken={MAPBOX_ACCESS_TOKEN}
                 onRetrieve={res => {
                     const feature = res.features[0]
                     const coords = feature.geometry.coordinates as [number, number]
@@ -36,7 +36,7 @@ export function Searchbox() {
             
             {origin.coords && (
                 <SearchBox
-                    accessToken="pk.eyJ1Ijoic2tuMHR0IiwiYSI6ImNrd25lM2prMjI1MGgyd21kbDRuOTRib24ifQ.JLDxqFK3HC9rKzQIBCxMWg"
+                    accessToken={MAPBOX_ACCESS_TOKEN}
                     onRetrieve={res => {
                         const feature = res.features[0]
                         const destCoords = feature.geometry.coordinates as [number, number]
