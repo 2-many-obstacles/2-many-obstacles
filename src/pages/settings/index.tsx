@@ -49,35 +49,53 @@ export default function Questionnaire() {
         if(advancedMobility) {
           setStep(step + 1);}
         }}/> },
-    { id: 3, question: <MaxCurb onSubmit={(advancedMobility) => 
+    { id: 3, question: <MaxCurb onSubmit={ (next) => 
       {
-        if(advancedMobility) {
+        if(next) {
           setStep(step + 1);}
+        else{
+          setStep(step - 1);
+        }
         }}/> },
-    { id: 4, question: <MinWidth onSubmit={(advancedMobility) => 
+    { id: 4, question: <MinWidth onSubmit={(next) => 
       {
-        if(advancedMobility) {
+        if(next) {
           setStep(step + 1);}
+        else{
+          setStep(step - 1);
+        }
         }}/> },
-    { id: 5, question: <SurfaceCondition onSubmit={(advancedMobility) => 
+    { id: 5, question: <SurfaceCondition onSubmit={(next) => 
       {
-        if(advancedMobility) {
+        if(next) {
           setStep(step + 1);}
+        else{
+          setStep(step - 1);
+        }
         }}/> },
-    { id: 6, question: <SurfaceType onSubmit={(advancedMobility) => 
+    { id: 6, question: <SurfaceType onSubmit={(next) => 
       {
-        if(advancedMobility) {
+        if(next) {
           setStep(step + 1);}
+        else{
+          setStep(step - 1);
+        }
         }}/> },
-    { id: 7, question: <Steps onSubmit={(advancedMobility) => 
+    { id: 7, question: <Steps onSubmit={(next) => 
       {
-        if(advancedMobility) {
+        if(next) {
           setStep(step + 1);}
+        else{
+          setStep(step - 1);
+        }
         }}/> },
-    { id: 8, question: <Thanks onSubmit={(advancedMobility) => 
+    { id: 8, question: <Thanks onSubmit={(next) => 
       {
-        if(advancedMobility) {
+        if(next) {
           setStep(step + 1);}
+        else{
+          setStep(step - 1);
+        }
         }}/> },
   ];
 
