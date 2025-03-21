@@ -4,7 +4,7 @@ export default function MaxSlope(props: { onSubmit: (next: boolean, selectedSlop
     const [slope, setSlope] = useState<number>(6)
   const slopeOptions = [
     { value: 3, description: "Almost no slope. Suitable for everyone." },
-    { value: 6, description: "Suitable for wheelchair users." },
+    { value: 6, description: "Suitable for wheelchair users. (recommended)" },
     { value: 10, description: "Suitable for most electric wheelchairs." },
     { value: 15, description: "Challenging for most wheelchairs. Only recommended with help of a supporter." },
   ];
@@ -21,6 +21,7 @@ export default function MaxSlope(props: { onSubmit: (next: boolean, selectedSlop
               type="radio"
               name="slope"
               value={option.value}
+              checked={slope === option.value}
               onChange={() => setSlope(option.value)}
               className="mr-2"
             />
