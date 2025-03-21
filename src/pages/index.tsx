@@ -50,7 +50,7 @@ export default function App() {
         <Help />
         <NavigationBox onNavigate={route => {setRoute(route)}}/>
         {route && <Route route={route} />}
-        {route && <Timeline route={route} onHover={console.log} />}
+        {route && <Timeline route={route} onHover={console.log} onClick={console.log} />}
         {geolocation && (
           <Source id="position" type="geojson" data={{ type: 'Point', coordinates: [geolocation.coords.longitude  , geolocation.coords.latitude] }}>
             <Layer 
