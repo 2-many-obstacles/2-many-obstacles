@@ -19,7 +19,7 @@ export default function MinWidth(props: { onSubmit: (next: boolean, minWidth: nu
           onChange={(e) => setMinWidth(Number(e.target.value))} // Convert to number
             className="w-1/5"
           />
-        <span className="ml-2 text-sm">{minWidth}</span>
+        <span className="ml-2 text-sm">{minWidth}m</span>
         <input
           type="number"
           min="1"
