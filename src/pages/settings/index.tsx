@@ -27,6 +27,7 @@ import SurfaceCondition from "./surface_condition";
 import SurfaceType from "./surface_type";
 import Steps from "./steps";
 import Thanks from "./thanks";
+import Router from "next/router";
 
 interface Question {
   id: number;
@@ -36,7 +37,6 @@ interface Question {
 
 export default function Questionnaire() {
   const [step, setStep] = useState<number>(0);
-  const [answers, setAnswers] = useState<{ [key: number]: string }>({});
 
   const questions: Question[] = [
     { id: 1, question: <Welcome onSubmit={(advancedMobility) => 
@@ -48,24 +48,26 @@ export default function Questionnaire() {
       {
         if(next) {
           setStep(step + 1);
-          console.log(slope);
+          localStorage.setItem("max_slope", slope.toString());
         }
         else{
           setStep(step - 1);
         }
         }}/> },
-    { id: 3, question: <MaxCurb onSubmit={ (max_curb, next) => 
+    { id: 3, question: <MaxCurb onSubmit={ (next, max_curb) => 
       {
         if(next) {
-          setStep(step + 1);}
+          setStep(step + 1);
+          localStorage.setItem("max_curb", max_curb.toString());}
         else{
           setStep(step - 1);
         }
         }}/> },
-    { id: 4, question: <MinWidth onSubmit={(next) => 
+    { id: 4, question: <MinWidth onSubmit={(next, min_width) => 
       {
         if(next) {
-          setStep(step + 1);}
+          setStep(step + 1);
+          localStorage.setItem("min_width", min_width.toString());}
         else{
           setStep(step - 1);
         }
@@ -78,10 +80,11 @@ export default function Questionnaire() {
           setStep(step - 1);
         }
         }}/> },
-    { id: 6, question: <SurfaceType onSubmit={(next) => 
+    { id: 6, question: <SurfaceType onSubmit={(next, surface_type) => 
       {
         if(next) {
-          setStep(step + 1);}
+          setStep(step + 1);
+          localStorage.setItem("surface_type", surface_type.toString());}
         else{
           setStep(step - 1);
         }
@@ -90,20 +93,16 @@ export default function Questionnaire() {
       {
         if(next) {
           setStep(step + 1);
-          console.log(allowSteps);
+          localStorage.setItem("allowSteps", allowSteps.toString());
         }
         else{
           setStep(step - 1);
         }
         }}/> },
-    { id: 8, question: <Thanks onSubmit={(next) => 
+    { id: 8, question: <Thanks onSubmit={() => 
       {
-        if(next) {
-          setStep(step + 1);}
-        else{
-          setStep(step - 1);
-        }
-        }}/> },
+          Router.push("/");}
+      }/> },
   ];
 
 

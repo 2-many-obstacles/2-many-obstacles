@@ -1,12 +1,12 @@
 import { useState } from "react";
 import NavigationButtons from "./navigation_buttons";
 
-export default function MaxSlope(props: { onSubmit: (curb: string, next: boolean) => void }) {
-  const [curb, setCurb] = useState<string>("6 cm")
+export default function MaxSlope(props: { onSubmit: (next: boolean, curb: number) => void }) {
+  const [curb, setCurb] = useState<number>(6)
   const curbOptions = [
-    { value: "3 cm"},
-    { value: "6 cm"},
-    { value: "10 cm"},
+    { value: 3, display: "3 cm"},
+    { value: 6, display: "6 cm"},
+    { value: 10, display: "10 cm"},
     ];
 
 
@@ -21,18 +21,17 @@ export default function MaxSlope(props: { onSubmit: (curb: string, next: boolean
               type="radio"
               name="slope"
               value={option.value}
-              checked={curb === option.value}
               onChange={() => setCurb(option.value)}
               className="mr-2"
             />
-            {option.value}
+            {option.display}
          </label>
         ))}
       </div>
         <div>
         <NavigationButtons
-          onBack={() => props.onSubmit(curb, false)}
-          onNext={() => props.onSubmit(curb, true)}
+          onBack={() => props.onSubmit(false, curb)}
+          onNext={() => props.onSubmit(true, curb)}
         />
         </div>
     </div>
