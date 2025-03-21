@@ -7,7 +7,7 @@ const Help = () => {
   return (
     <button
       onClick={() => router.push("/community")}
-      className="fixed bottom-12 right-12 p-4 bg-green-500 hover:bg-green-600 cursor-pointer text-white rounded-full shadow-lg"
+      className="z-999 fixed bottom-12 right-12 p-4 bg-green-500 hover:bg-green-600 cursor-pointer text-white rounded-full shadow-lg"
     >
       <Phone />
     </button>
