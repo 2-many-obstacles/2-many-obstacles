@@ -25,7 +25,7 @@ interface RouteProperties {
     }
 }
 
-export function Timeline(props: { route: GeoJSON.FeatureCollection<GeoJSON.LineString, RouteProperties> }) {
+export function Timeline(props: { route: GeoJSON.FeatureCollection<GeoJSON.LineString, RouteProperties>, onHover: (way_points: number[]) => void }) {
     const properties = props.route.features[0].properties;
     const steps = properties.segments[0].steps;
     const totalDuration = properties.summary.duration;
@@ -60,7 +60,7 @@ export function Timeline(props: { route: GeoJSON.FeatureCollection<GeoJSON.LineS
             
             <div className="space-y-4">
                 {steps.map((step, index) => (
-                    <div key={index} className="flex items-start space-x-4">
+                    <div key={index} className="flex items-start space-x-4 hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-md" onMouseEnter={() => props.onHover(step.way_points)}>
                         <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500 dark:bg-blue-600 text-white flex items-center justify-center">
                             {index + 1}
                         </div>

@@ -36,7 +36,7 @@ export default function App() {
         <Help />
         <NavigationBox onNavigate={route => {setRoute(route)}}/>
         {route && <Route route={route} />}
-        {route && <Timeline route={route} />}
+        {route && <Timeline route={route} onHover={console.log} />}
       </Map>
     </div>
   );
