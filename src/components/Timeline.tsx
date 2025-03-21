@@ -13,22 +13,18 @@ interface RouteProperties {
     }[]
     extras: {
         roadaccessrestrictions: unknown; // TODO
-        warnings: {
-            code: number
-            message: string
-        }[]
-        way_points: unknown; // TODO
-        summary: {
-            distance: number
-            duration: number
-        }
+    }
+    warnings: {
+        code: number
+        message: string
+    }[]
+    way_points: unknown; // TODO
+    summary: {
+        distance: number
+        duration: number
     }
 }
 
 export function Timeline(props: { route: GeoJSON.FeatureCollection<GeoJSON.LineString, RouteProperties> }) {
-    return (
-        <div>
-            {JSON.stringify(props.route.features[0].properties)}
-        </div>
-    )
+    
 }
