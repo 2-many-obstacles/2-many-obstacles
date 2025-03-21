@@ -72,10 +72,12 @@ export default function Questionnaire() {
           setStep(step - 1);
         }
         }}/> },
-    { id: 5, question: <SurfaceCondition onSubmit={(next) => 
+    { id: 5, question: <SurfaceCondition onSubmit={(next, condition) => 
       {
         if(next) {
-          setStep(step + 1);}
+          setStep(step + 1);
+          console.log(condition);
+        }
         else{
           setStep(step - 1);
         }
