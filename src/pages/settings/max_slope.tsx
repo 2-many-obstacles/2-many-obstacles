@@ -12,9 +12,9 @@ export default function MaxSlope(props: { onSubmit: (next: boolean, selectedSlop
 
   return (
     <div className="p-4">
-      <h2 className="text-lg font-bold">MaxSlope</h2>
+      <h2 className="text-lg font-bold">Maximum Slope</h2>
       <div className="mt-4">
-        <p className="mb-2 text-sm font-medium">Select Maximum Slope in your route:</p>
+        <p className="mb-2 text-sm font-medium">Select maximum slope in your route:</p>
         {slopeOptions.map((option) => (
           <label key={option.value} className="block mb-2">
             <input
