@@ -1,4 +1,4 @@
-interface RouteProperties {
+export interface RouteProperties {
     segments: {
         distance: number
         duration: number
@@ -45,7 +45,7 @@ enum StepType {
 export function Timeline(props: { 
     route: GeoJSON.FeatureCollection<GeoJSON.LineString, RouteProperties>, 
     onHover: (way_points: number[]) => void,
-    onClick: (way_points: number[]) => void 
+    onClick: (way_points: number) => void 
 }) {
     const properties = props.route.features[0].properties;
     const steps = properties.segments[0].steps;
@@ -116,7 +116,7 @@ export function Timeline(props: {
                         key={index} 
                         className="flex items-center space-x-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md cursor-pointer py-1" 
                         onMouseEnter={() => props.onHover(step.way_points)}
-                        onClick={() => props.onClick(step.way_points)}
+                        onClick={() => props.onClick(index)}
                     >
                         <div className="flex-shrink-0 w-6 flex items-center justify-center text-gray-600 dark:text-gray-400">
                             {getDirectionIcon(step)}

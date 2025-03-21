@@ -30,7 +30,7 @@ export const useGeolocation = () => {
 export default function App() {
   const mapRef = React.useRef<MapRef>(null);
   const [route, setRoute] = React.useState<any>();
-
+  const [highlightedNavigationStep, setHighlightedNavigationStep] = React.useState<number>();
   const geolocation = useGeolocation();
   const onMapLoad = React.useCallback(() => {
     if (!geolocation)
@@ -49,8 +49,8 @@ export default function App() {
       >
         <Help />
         <NavigationBox onNavigate={route => {setRoute(route)}}/>
-        {route && <Route route={route} />}
-        {route && <Timeline route={route} onHover={console.log} onClick={console.log} />}
+        {route && <Route route={route} highlightedStep={highlightedNavigationStep} />}
+        {route && <Timeline route={route} onHover={console.log} onClick={step => {setHighlightedNavigationStep(step)}} />}
         {geolocation && (
           <Source id="position" type="geojson" data={{ type: 'Point', coordinates: [geolocation.coords.longitude  , geolocation.coords.latitude] }}>
             <Layer 
