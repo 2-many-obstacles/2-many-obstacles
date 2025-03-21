@@ -35,7 +35,16 @@ export function NavigationBox(props: {onNavigate: (route: any) => void}) {
 
             service.calculate({
                 coordinates: [originCoords, destinationCoords],
-                profile: 'driving-car',
+                profile: 'foot-walking',
+                options: {
+                    avoid_features: ["fords", "ferries"],
+                    profile_params: {
+                        weightings: {
+                            green: 0.8,
+                            quiet: 1.0
+                        }
+                    },
+                },
                 format: 'geojson',
             }).then(response => {
                 props.onNavigate(response)
