@@ -2,7 +2,6 @@ import { useState } from "react";
 
 export default function MinWidth(props: { onSubmit: (next: boolean, minWidth: number) => void }) {
   const [minWidth, setMinWidth] = useState<number>(2);
-  const [sliderValue, setSliderValue] = useState<number>(minWidth);
 
   return (
     <div className="p-4">
@@ -16,17 +15,17 @@ export default function MinWidth(props: { onSubmit: (next: boolean, minWidth: nu
           type="range"
           min="1"
           max="5"
-          value={sliderValue}
-          onChange={(e) => setSliderValue(Number(e.target.value))} // Convert to number
+          value={minWidth}
+          onChange={(e) => setMinWidth(Number(e.target.value))} // Convert to number
             className="w-1/5"
           />
-        <span className="ml-2 text-sm">{sliderValue}m</span>
+        <span className="ml-2 text-sm">{minWidth}</span>
         <input
           type="number"
           min="1"
           max="5"
-          value={sliderValue}
-          onChange={(e) => setSliderValue(Number(e.target.value))} // Convert to number
+          value={minWidth}
+          onChange={(e) => setMinWidth(Number(e.target.value))} // Convert to number
           className="ml-4 w-16 text-center border rounded"
         />
       </div>

@@ -86,10 +86,12 @@ export default function Questionnaire() {
           setStep(step - 1);
         }
         }}/> },
-    { id: 7, question: <Steps onSubmit={(next) => 
+    { id: 7, question: <Steps onSubmit={(next, allowSteps) => 
       {
         if(next) {
-          setStep(step + 1);}
+          setStep(step + 1);
+          console.log(allowSteps);
+        }
         else{
           setStep(step - 1);
         }
