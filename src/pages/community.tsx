@@ -120,7 +120,8 @@ export default function CommunityPage() {
         </div>}
       </div>
       <a
-        href={'https://www.gelbeseiten.de/suche/taxi/ort?cx=' + location?.[0] + '&cy=' + location?.[1] + '&umkreis=4000'}
+        href={'https://www.gelbeseiten.de/suche/taxi/ort?cx=' + geolocation?.coords.longitude + '&cy=' + geolocation?.coords.latitude + '&umkreis=4000'}
+        target='_blank'
         className="mt-8 w-full max-w-md px-4 py-3 bg-yellow-400 dark:bg-yellow-500 text-black font-bold text-lg rounded-lg text-center"
       >
         Taxi in {city} <br />
