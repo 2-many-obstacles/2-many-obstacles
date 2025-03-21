@@ -1,9 +1,8 @@
 import * as React from "react";
 import Map, { MapRef, ViewState } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
-
+import { Searchbox } from "@/components/Searchbox";
 import Help from '../components/Help';
-import Map from 'react-map-gl/mapbox';
 
 export default function App() {
   const mapRef = React.useRef<MapRef>(null);
@@ -30,9 +29,10 @@ export default function App() {
         mapboxAccessToken="pk.eyJ1Ijoic2tuMHR0IiwiYSI6ImNrd25lM2prMjI1MGgyd21kbDRuOTRib24ifQ.JLDxqFK3HC9rKzQIBCxMWg"
         style={{width: "100%", height: "100%"}}
         mapStyle="mapbox://styles/mapbox/streets-v9"
-      />
-
-      <Help />
+      >
+        <Help />
+        <Searchbox />
+      </Map>
     </div>
   );
 }
