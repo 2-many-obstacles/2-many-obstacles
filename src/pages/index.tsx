@@ -22,7 +22,6 @@ export default function App() {
   }, []);
 
   return (
-    <div className='w-full h-screen'>
       <Map
         ref={mapRef}
         onLoad={onMapLoad}
@@ -33,6 +32,5 @@ export default function App() {
         <Help />
         <Searchbox />
       </Map>
-    </div>
   );
 }
