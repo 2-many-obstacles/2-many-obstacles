@@ -35,6 +35,9 @@ export function NavigationBox(props: {onNavigate: (route: any) => void}) {
                 placeholder="Enter origin"
                 value={origin.value}
                 onChange={(value) => setOrigin(prev => ({ ...prev, value }))}
+                options={{
+                    proximity: map.current?.getCenter()
+                }}
             />
             
             {origin.coords && (
@@ -56,6 +59,7 @@ export function NavigationBox(props: {onNavigate: (route: any) => void}) {
                     placeholder="Enter destination"
                     value={destinationValue}
                     onChange={setDestinationValue}
+                    options={{ proximity: map.current?.getCenter() }}
                 />
             )}
         </div>
