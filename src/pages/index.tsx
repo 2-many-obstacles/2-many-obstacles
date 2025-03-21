@@ -13,8 +13,6 @@ export default function App() {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          console.log("Got location:", position);
-          console.log("Map ref:", mapRef.current);
           mapRef.current?.flyTo({center: [position.coords.longitude, position.coords.latitude], zoom: 9, speed: 5});
         },
         (error) => console.error("Error getting location:", error),
