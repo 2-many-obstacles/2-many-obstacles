@@ -14,7 +14,7 @@ interface Origin {
     value: string;
 }
 
-export function Searchbox() {
+export function Searchbox(props: {onNavigate: (route: any) => void}) {
     const map = useMap()
     const [origin, setOrigin] = useState<Origin>({ coords: null, value: '' })
     const [destinationValue, setDestinationValue] = useState('')
@@ -51,7 +51,7 @@ export function Searchbox() {
                             profile: 'driving-car',
                             format: 'geojson',
                         })
-                        console.log(response)
+                        props.onNavigate(response)
                     }}
                     placeholder="Enter destination"
                     value={destinationValue}
