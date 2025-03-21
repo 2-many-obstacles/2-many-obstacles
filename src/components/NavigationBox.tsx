@@ -1,24 +1,59 @@
 import { useMap } from 'react-map-gl/mapbox'
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { MAPBOX_ACCESS_TOKEN } from '../pages/index';
 import Openrouteservice from 'openrouteservice-js';
+import { useRouter } from 'next/router';
 
 // @ts-expect-error weird error with mapbox types
 const SearchBox = dynamic(() => import('@mapbox/search-js-react').then(mod => mod.SearchBox), {
     ssr: false,
 })
 
-interface Origin {
-    coords: [number, number] | null;
-    value: string;
-}
-
 export function NavigationBox(props: {onNavigate: (route: any) => void}) {
     const map = useMap()
-    const [origin, setOrigin] = useState<Origin>({ coords: null, value: '' })
-    const [destinationValue, setDestinationValue] = useState('')
-    
+    const router = useRouter();
+
+    const { origin_lat, origin_lon, destination_lat, destination_lon } = router.query;
+    const originCoords = useMemo<[number, number] | undefined>(() => {
+        if (typeof origin_lon === 'string' && typeof origin_lat === 'string') {
+            return [parseFloat(origin_lon), parseFloat(origin_lat)];
+        }
+    }, [origin_lat, origin_lon]);
+    const destinationCoords = useMemo<[number, number] | undefined>(() => {
+        if (typeof destination_lon === 'string' && typeof destination_lat === 'string') {
+            return [parseFloat(destination_lon), parseFloat(destination_lat)];
+        }
+    }, [destination_lat, destination_lon]);
+
+    useEffect(() => {
+        if (!originCoords)
+            return;
+
+        if (destinationCoords) {
+            const service = new Openrouteservice.Directions({ api_key: '5b3ce3597851110001cf6248978ef786663647a0950ff1f105ca227d' })
+
+            service.calculate({
+                coordinates: [originCoords, destinationCoords],
+                profile: 'driving-car',
+                format: 'geojson',
+            }).then(response => {
+                props.onNavigate(response)
+                map.current?.fitBounds(response.bbox, { padding: { top: 120, left: 50, right: 50, bottom: 50 } })
+            }).catch(console.error)
+        } else {
+            map.current?.flyTo({
+                center: originCoords,
+                speed: 3
+            })
+        }
+    }, [originCoords, destinationCoords]);
+
+    const updateQuery = useCallback((update: Record<string, string>) => {
+        const newQuery = { ...router.query, ...update }
+        router.replace({ pathname: router.pathname, query: newQuery })
+    }, [router])
+
     return (
         <div className="flex flex-col gap-2">
             <SearchBox
@@ -26,45 +61,35 @@ export function NavigationBox(props: {onNavigate: (route: any) => void}) {
                 onRetrieve={res => {
                     const feature = res.features[0]
                     const coords = feature.geometry.coordinates as [number, number]
-                    setOrigin({ coords, value: feature.properties?.name || '' })
-                    map.current?.flyTo({
-                        center: coords,
-                        speed: 3
+                    updateQuery({
+                        origin: feature.properties?.name || '',
+                        origin_lon: coords[0].toString(),
+                        origin_lat: coords[1].toString()
                     })
                 }}
                 placeholder="Enter origin"
-                value={origin.value}
-                onChange={(value) => setOrigin(prev => ({ ...prev, value }))}
+                value={router.query.origin as string | undefined}
+                onChange={value => updateQuery({ origin: value })}
                 options={{
                     proximity: map.current?.getCenter()
                 }}
             />
             
-            {origin.coords && (
+            {originCoords && (
                 <SearchBox
                     accessToken={MAPBOX_ACCESS_TOKEN}
                     onRetrieve={async res => {
                         const feature = res.features[0]
                         const destCoords = feature.geometry.coordinates as [number, number]
-                        setDestinationValue(feature.properties?.name || '')
-
-                        const service = new Openrouteservice.Directions({ api_key: '5b3ce3597851110001cf6248978ef786663647a0950ff1f105ca227d' })
-
-                        try {
-                            const response = await service.calculate({
-                                coordinates: [origin.coords, destCoords],
-                                profile: 'driving-car',
-                                format: 'geojson',
-                            })
-                            props.onNavigate(response)
-                            map.current?.fitBounds(response.bbox, { padding: { top: 120, left: 50, right: 50, bottom: 50 } })
-                        } catch (error) {
-                            console.error(error)
-                        }
+                        updateQuery({
+                            destination: feature.properties?.name || '',
+                            destination_lon: destCoords[0].toString(),
+                            destination_lat: destCoords[1].toString()
+                        })
                     }}
                     placeholder="Enter destination"
-                    value={destinationValue}
-                    onChange={setDestinationValue}
+                    value={router.query.destination as string | undefined}
+                    onChange={value => updateQuery({ destination: value })}
                     options={{ proximity: map.current?.getCenter() }}
                 />
             )}
