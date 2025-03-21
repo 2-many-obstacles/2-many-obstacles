@@ -2,6 +2,8 @@ import { useMap } from 'react-map-gl/mapbox'
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { MAPBOX_ACCESS_TOKEN } from '../pages/index';
+
+// @ts-expect-error weird error with mapbox types
 const SearchBox = dynamic(() => import('@mapbox/search-js-react').then(mod => mod.SearchBox), {
     ssr: false,
 })
