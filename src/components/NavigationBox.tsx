@@ -14,7 +14,7 @@ interface Origin {
     value: string;
 }
 
-export function Searchbox(props: {onNavigate: (route: any) => void}) {
+export function NavigationBox(props: {onNavigate: (route: any) => void}) {
     const map = useMap()
     const [origin, setOrigin] = useState<Origin>({ coords: null, value: '' })
     const [destinationValue, setDestinationValue] = useState('')
