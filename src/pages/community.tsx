@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useState } from 'react';
+import { useGeolocation } from '.';
 
 enum MessageVariant {
   STAIRS = 'stairs',
@@ -36,7 +37,8 @@ export async function getCityFromCoordinates(latitude: number, longitude: number
 export default function CommunityPage() {
   const router = useRouter();
   const [messageSent, setMessageSent] = useState<MessageVariant|undefined>(undefined);
-  const [location, setLocation] = useState<number[]|undefined>(undefined);
+
+  const geolocation = useGeolocation();
   const[city, setCity] = useState<string|undefined>(undefined);
 
   const onNeedHelp = (messageVariant: MessageVariant) => {
@@ -44,25 +46,13 @@ export default function CommunityPage() {
   };
 
   React.useEffect(() => {
-    if (location) {
-      getCityFromCoordinates(location[1], location[0]).then((city) => {
+    if (geolocation) {
+      getCityFromCoordinates(geolocation.coords.latitude, geolocation.coords.longitude).then((city) => {
         setCity(city??undefined);
       });
     }
   }
-  , [location]);
-
-  React.useEffect(() => {
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            setLocation([position.coords.longitude, position.coords.latitude]);
-          },
-          (error) => console.error("Error getting location:", error),
-          { enableHighAccuracy: true }
-        );
-      }
-    }, []);
+  , [geolocation]);
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-8 flex flex-col items-center">
