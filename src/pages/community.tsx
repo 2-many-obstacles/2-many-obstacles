@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useState } from 'react';
 import { useGeolocation } from '.';
+import Openrouteservice from 'openrouteservice-js';
 
 enum MessageVariant {
   STAIRS = 'stairs',
@@ -13,21 +14,12 @@ enum MessageVariant {
 
 export async function getCityFromCoordinates(latitude: number, longitude: number): Promise<string | null> {
   try {
-    const response = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-    );
-
-    if (!response.ok) {
-      console.error('Failed to fetch city data:', response.statusText);
-      return null;
-    }
-
-    const data = await response.json();
-
-    // Extract the city from the response
-    const city = data.address?.city || data.address?.town || data.address?.village;
-
-    return city || null;
+    const service = new Openrouteservice.Geocode({ api_key: '5b3ce3597851110001cf6248978ef786663647a0950ff1f105ca227d' })
+    const response = await service.reverseGeocode({
+      point: { lat_lng: [latitude, longitude] },
+    })
+    const properties = response.features[0].properties;
+    return properties.locality || properties.localadmin || properties.county || null;
   } catch (error) {
     console.error('Error fetching city data:', error);
     return null;
