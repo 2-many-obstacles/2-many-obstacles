@@ -4,6 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { NavigationBox } from "@/components/NavigationBox";
 import Help from '../components/Help';
 import { Route } from "@/components/Route";
+import { Timeline } from "@/components/Timeline";
 
 export const MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoic2tuMHR0IiwiYSI6ImNrd25lM2prMjI1MGgyd21kbDRuOTRib24ifQ.JLDxqFK3HC9rKzQIBCxMWg";
 
@@ -35,6 +36,7 @@ export default function App() {
         <Help />
         <NavigationBox onNavigate={route => {setRoute(route)}}/>
         {route && <Route route={route} />}
+        {route && <Timeline route={route} />}
       </Map>
     </div>
   );
