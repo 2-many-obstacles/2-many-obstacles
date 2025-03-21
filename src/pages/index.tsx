@@ -1,6 +1,7 @@
-import * as React from 'react';
-import Map from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
+
+import Help from '../components/Help';
+import Map from 'react-map-gl/mapbox';
 
 export default function App() {
   return (
@@ -12,9 +13,11 @@ export default function App() {
           latitude: 40,
           zoom: 3.5
         }}
-        style={{width: "100%", height: "100%"}}
+        style={{ width: "100%", height: "100%" }}
         mapStyle="mapbox://styles/mapbox/streets-v9"
       />
+
+      <Help />
     </div>
   );
 }
