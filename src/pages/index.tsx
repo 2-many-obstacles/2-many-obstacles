@@ -2,6 +2,9 @@ import * as React from "react";
 import Map, { MapRef, ViewState } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 
+import Help from '../components/Help';
+import Map from 'react-map-gl/mapbox';
+
 export default function App() {
   const mapRef = React.useRef<MapRef>(null);
 
@@ -28,6 +31,8 @@ export default function App() {
         style={{width: "100%", height: "100%"}}
         mapStyle="mapbox://styles/mapbox/streets-v9"
       />
+
+      <Help />
     </div>
   );
 }
