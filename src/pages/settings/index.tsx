@@ -44,10 +44,15 @@ export default function Questionnaire() {
         if(advancedMobility) {
           setStep(step + 1);}
         }}/> },
-    { id: 2, question: <MaxSlope onSubmit={(advancedMobility) => 
+    { id: 2, question: <MaxSlope onSubmit={(next, slope) => 
       {
-        if(advancedMobility) {
-          setStep(step + 1);}
+        if(next) {
+          setStep(step + 1);
+          console.log(slope);
+        }
+        else{
+          setStep(step - 1);
+        }
         }}/> },
     { id: 3, question: <MaxCurb onSubmit={ (next) => 
       {

@@ -1,8 +1,10 @@
 import * as React from "react";
-import Map, { Layer, MapRef, Source } from "react-map-gl/mapbox";
+import Map, { Layer, MapRef, Marker, Source } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { NavigationBox } from "@/components/NavigationBox";
 import Help from '../components/Help';
+import { Route } from "@/components/Route";
+import { Timeline } from "@/components/Timeline";
 
 export const MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoic2tuMHR0IiwiYSI6ImNrd25lM2prMjI1MGgyd21kbDRuOTRib24ifQ.JLDxqFK3HC9rKzQIBCxMWg";
 
@@ -33,9 +35,8 @@ export default function App() {
       >
         <Help />
         <NavigationBox onNavigate={route => {setRoute(route)}}/>
-        {route && <Source type="geojson" data={route}>
-          <Layer id="route" type="line" paint={{ "line-color": "#888", "line-width": 6 }} />
-        </Source>}
+        {route && <Route route={route} />}
+        {route && <Timeline route={route} />}
       </Map>
     </div>
   );

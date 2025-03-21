@@ -49,13 +49,18 @@ export function NavigationBox(props: {onNavigate: (route: any) => void}) {
                         setDestinationValue(feature.properties?.name || '')
 
                         const service = new Openrouteservice.Directions({ api_key: '5b3ce3597851110001cf6248978ef786663647a0950ff1f105ca227d' })
-                        const response = await service.calculate({
-                            coordinates: [origin.coords, destCoords],
-                            profile: 'driving-car',
-                            format: 'geojson',
-                        })
-                        props.onNavigate(response)
-                        map.current?.fitBounds(response.bbox, { padding: 200 })
+
+                        try {
+                            const response = await service.calculate({
+                                coordinates: [origin.coords, destCoords],
+                                profile: 'driving-car',
+                                format: 'geojson',
+                            })
+                            props.onNavigate(response)
+                            map.current?.fitBounds(response.bbox, { padding: { top: 120, left: 50, right: 50, bottom: 50 } })
+                        } catch (error) {
+                            console.error(error)
+                        }
                     }}
                     placeholder="Enter destination"
                     value={destinationValue}
