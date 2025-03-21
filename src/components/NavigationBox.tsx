@@ -10,6 +10,8 @@ const SearchBox = dynamic(() => import('@mapbox/search-js-react').then(mod => mo
     ssr: false,
 })
 
+export const OPENROUTESERVICE_API_KEY = '5b3ce3597851110001cf6248978ef786663647a0950ff1f105ca227d';
+
 export function NavigationBox(props: {onNavigate: (route: any) => void}) {
     const map = useMap()
     const router = useRouter();
@@ -31,7 +33,7 @@ export function NavigationBox(props: {onNavigate: (route: any) => void}) {
             return;
 
         if (destinationCoords) {
-            const service = new Openrouteservice.Directions({ api_key: '5b3ce3597851110001cf6248978ef786663647a0950ff1f105ca227d' })
+            const service = new Openrouteservice.Directions({ api_key: OPENROUTESERVICE_API_KEY })
 
             service.calculate({
                 coordinates: [originCoords, destinationCoords],

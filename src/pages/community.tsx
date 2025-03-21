@@ -3,6 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useGeolocation } from '.';
 import Openrouteservice from 'openrouteservice-js';
+import { OPENROUTESERVICE_API_KEY } from '@/components/NavigationBox';
 
 enum MessageVariant {
   STAIRS = 'stairs',
@@ -14,7 +15,7 @@ enum MessageVariant {
 
 export async function getCityFromCoordinates(latitude: number, longitude: number): Promise<string | null> {
   try {
-    const service = new Openrouteservice.Geocode({ api_key: '5b3ce3597851110001cf6248978ef786663647a0950ff1f105ca227d' })
+    const service = new Openrouteservice.Geocode({ api_key: OPENROUTESERVICE_API_KEY })
     const response = await service.reverseGeocode({
       point: { lat_lng: [latitude, longitude] },
     })
