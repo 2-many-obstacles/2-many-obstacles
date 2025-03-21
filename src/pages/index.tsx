@@ -23,6 +23,7 @@ export default function App() {
   }, []);
   
   return (
+    <div className='w-full h-screen'>
       <Map
         ref={mapRef}
         onLoad={onMapLoad}
@@ -36,5 +37,6 @@ export default function App() {
           <Layer id="route" type="line" paint={{ "line-color": "#888", "line-width": 6 }} />
         </Source>}
       </Map>
+    </div>
   );
 }
