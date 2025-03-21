@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function SurfaceCondition(props: { onSubmit: (next: boolean, condition: number) => void }) {
-  const [condition, setCondition] = useState<number>(2);
+  const [condition, setCondition] = useState<number>(7);
   const [sliderValue, setSliderValue] = useState<number>(condition);
 
   type Label = {
@@ -52,8 +52,9 @@ export default function SurfaceCondition(props: { onSubmit: (next: boolean, cond
     <div className="p-4">
       <h2 className="text-lg font-bold">Surface Condition</h2>
       <p className="mb-2 text-sm font-medium">
-        Select minimum width of the paths in your route:<br />
-        For wheelchair users or people with limited mobility, we recommend a minimum path width of 2m.
+        Chose minimum surface condition:<br />
+        All surfaces on the route will be at least in this condition. <br />
+        For wheelchair users or people with limited mobility, we recommend a minimum surface condition of good or Intermediate.
       </p>
       <div className="flex items-center mt-6">
         

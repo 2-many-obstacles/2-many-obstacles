@@ -21,6 +21,7 @@ export default function MaxSlope(props: { onSubmit: (next: boolean, curb: number
               type="radio"
               name="slope"
               value={option.value}
+              checked={curb === option.value}
               onChange={() => setCurb(option.value)}
               className="mr-2"
             />
