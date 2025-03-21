@@ -1,4 +1,5 @@
 import { useState } from "react";
+import NavigationButtons from "./navigation_buttons";
 
 export default function MaxSlope(props: { onSubmit: (next: boolean, selectedSlope: number) => void }) {
     const [slope, setSlope] = useState<number>(6)
@@ -29,13 +30,11 @@ export default function MaxSlope(props: { onSubmit: (next: boolean, selectedSlop
           </label>
         ))}
       </div>
-      <div className="mt-4 flex justify-between">
-            <button className="p-2 bg-red-500 text-white rounded" onClick={() => props.onSubmit(false, slope)}>
-            Back
-            </button>
-            <button className="p-2 bg-blue-500 text-white rounded" onClick={() => props.onSubmit(true, slope)}>
-            Next
-            </button>
+      <div>
+      <NavigationButtons
+        onBack={() => props.onSubmit(false, slope)}
+        onNext={() => props.onSubmit(true, slope)}
+      />
       </div>
     </div>
   );

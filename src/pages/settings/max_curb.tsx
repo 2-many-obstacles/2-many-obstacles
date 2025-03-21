@@ -1,4 +1,5 @@
 import { useState } from "react";
+import NavigationButtons from "./navigation_buttons";
 
 export default function MaxSlope(props: { onSubmit: (curb: string, next: boolean) => void }) {
   const [curb, setCurb] = useState<string>("6 cm")
@@ -28,13 +29,11 @@ export default function MaxSlope(props: { onSubmit: (curb: string, next: boolean
          </label>
         ))}
       </div>
-        <div className="mt-4 flex justify-between">
-            <button className="p-2 bg-red-500 text-white rounded" onClick={() => props.onSubmit(curb, false)}>
-            Back
-            </button>
-            <button className="p-2 bg-blue-500 text-white rounded" onClick={() => props.onSubmit(curb,true)}>
-            Next
-            </button>
+        <div>
+        <NavigationButtons
+          onBack={() => props.onSubmit(curb, false)}
+          onNext={() => props.onSubmit(curb, true)}
+        />
         </div>
     </div>
   );

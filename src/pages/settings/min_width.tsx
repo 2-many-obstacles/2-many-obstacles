@@ -1,4 +1,5 @@
 import { useState } from "react";
+import NavigationButtons from "./navigation_buttons";
 
 export default function MinWidth(props: { onSubmit: (next: boolean, minWidth: number) => void }) {
   const [minWidth, setMinWidth] = useState<number>(2);
@@ -29,13 +30,11 @@ export default function MinWidth(props: { onSubmit: (next: boolean, minWidth: nu
           className="ml-4 w-16 text-center border rounded"
         />
       </div>
-      <div className="mt-4 flex justify-between">
-        <button className="p-2 bg-red-500 text-white rounded" onClick={() => props.onSubmit(false, minWidth)}>
-          Back
-        </button>
-        <button className="p-2 bg-blue-500 text-white rounded" onClick={() => props.onSubmit(true, minWidth)}>
-          Next
-        </button>
+      <div>
+      <NavigationButtons
+        onBack={() => props.onSubmit(false, minWidth)}
+        onNext={() => props.onSubmit(true, minWidth)}
+      />
       </div>
     </div>
   );

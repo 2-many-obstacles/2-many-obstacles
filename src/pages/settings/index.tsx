@@ -54,7 +54,7 @@ export default function Questionnaire() {
           setStep(step - 1);
         }
         }}/> },
-    { id: 3, question: <MaxCurb onSubmit={ (next) => 
+    { id: 3, question: <MaxCurb onSubmit={ (max_curb, next) => 
       {
         if(next) {
           setStep(step + 1);}
@@ -106,23 +106,10 @@ export default function Questionnaire() {
         }}/> },
   ];
 
-  const handleNext = () => {
-    if (step < questions.length - 1) setStep(step + 1);
-  };
-
-  const handlePrev = () => {
-    if (step > 0) setStep(step - 1);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAnswers({ ...answers, [questions[step].id]: e.target.value });
-  };
 
   return (
-    <div className="p-4">
-      <h2 className="text-lg font-bold">{questions[step].question}</h2>
-      
-
+    <div className="p-4 max-w-3xl mx-auto">
+      {questions[step].question}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import NavigationButtons from "./navigation_buttons";
 
 export default function SurfaceType(props : {onSubmit : (next: boolean, surfaceType: number) => void}) {
       const [surfaceType, setSurfaceType] = useState<number>(0)
@@ -33,13 +34,11 @@ export default function SurfaceType(props : {onSubmit : (next: boolean, surfaceT
             </label>
           ))}
         </div>
-        <div className="mt-4 flex justify-between">
-              <button className="p-2 bg-red-500 text-white rounded" onClick={() => props.onSubmit(false, surfaceType)}>
-              Back
-              </button>
-              <button className="p-2 bg-blue-500 text-white rounded" onClick={() => props.onSubmit(true, surfaceType)}>
-              Next
-              </button>
+        <div>
+        <NavigationButtons
+          onBack={() => props.onSubmit(false, surfaceType)}
+          onNext={() => props.onSubmit(true, surfaceType)}
+        />
         </div>
       </div>
     );
