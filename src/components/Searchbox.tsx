@@ -2,6 +2,7 @@ import { useMap } from 'react-map-gl/mapbox'
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { MAPBOX_ACCESS_TOKEN } from '../pages/index';
+import Openrouteservice from 'openrouteservice-js';
 
 // @ts-expect-error weird error with mapbox types
 const SearchBox = dynamic(() => import('@mapbox/search-js-react').then(mod => mod.SearchBox), {
@@ -39,12 +40,18 @@ export function Searchbox() {
             {origin.coords && (
                 <SearchBox
                     accessToken={MAPBOX_ACCESS_TOKEN}
-                    onRetrieve={res => {
+                    onRetrieve={async res => {
                         const feature = res.features[0]
                         const destCoords = feature.geometry.coordinates as [number, number]
                         setDestinationValue(feature.properties?.name || '')
-                        // Here you can implement the navigation logic between origin.coords and destCoords
-                        console.log('Navigation from', origin.coords, 'to', destCoords)
+
+                        const service = new Openrouteservice.Directions({ api_key: '5b3ce3597851110001cf6248978ef786663647a0950ff1f105ca227d' })
+                        const response = await service.calculate({
+                            coordinates: [origin.coords, destCoords],
+                            profile: 'driving-car',
+                            format: 'geojson',
+                        })
+                        console.log(response)
                     }}
                     placeholder="Enter destination"
                     value={destinationValue}
