@@ -6,6 +6,7 @@ import Help from '../components/Help';
 import { Route } from "@/components/Route";
 import { Timeline, GeoJSONRoute } from "@/components/Timeline";
 import Router from "next/router";
+import Phone from "../components/icons/Settings";
 
 export const MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoic2tuMHR0IiwiYSI6ImNrd25lM2prMjI1MGgyd21kbDRuOTRib24ifQ.JLDxqFK3HC9rKzQIBCxMWg";
 
@@ -71,6 +72,13 @@ export default function App() {
           </Source>
         )}
       </Map>
+      <button
+      onClick={() => window.location.href = '/settings'}
+      className="z-999 fixed bottom-12 left-12 p-4 cursor-pointer text-white rounded-full shadow-lg"
+      style={{ backgroundColor: "rgb(219, 125, 75)" }}
+      >
+      <Phone />
+    </button>
     </div>
   );
 }
