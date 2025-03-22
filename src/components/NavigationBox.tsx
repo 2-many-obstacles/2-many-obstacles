@@ -1,4 +1,4 @@
-import { useMap } from 'react-map-gl/mapbox'
+import { useMap, Marker } from 'react-map-gl/mapbox'
 import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { MAPBOX_ACCESS_TOKEN } from '../pages/index';
@@ -184,6 +184,12 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                         <span className="text-xs text-gray-500">⚙️</span>
                     </div>
                 </div>
+            )}
+
+            {originCoords && !destinationCoords && (
+                <Marker longitude={originCoords[0]} latitude={originCoords[1]}>
+                    <div className="text-2xl">📍</div>
+                </Marker>
             )}
         </div>
     );
