@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Help from './Help';
 import Phone from './icons/Phone';
 import Settings from './icons/Settings';
+import { surfaceToStyle } from './Route';
 
 interface ExtraInfo<T> {
     values: [number, number, T][];
@@ -103,6 +104,38 @@ enum StepType {
 
 export type GeoJSONRoute = GeoJSON.FeatureCollection<GeoJSON.LineString, RouteProperties>;
 
+function Legend() {
+    const legendItems = [
+        { label: "Paved (Asphalt/Concrete)", color: surfaceToStyle(SurfaceType.Paved)["line-color"] },
+        { label: "Paving Stones", color: surfaceToStyle(SurfaceType.PavingStones)["line-color"] },
+        { label: "GrassPaver", color: surfaceToStyle(SurfaceType.GrassPaver)["line-color"] },
+        { label: "Compacted Gravel", color: surfaceToStyle(SurfaceType.CompactedGravel)["line-color"] },
+        { label: "Gravel", color: surfaceToStyle(SurfaceType.Gravel)["line-color"] },
+        { label: "Natural Ground (Dirt/Grass/Sand/Ice)", color: surfaceToStyle(SurfaceType.Ground)["line-color"] },
+        { label: "Unknown", color: surfaceToStyle(SurfaceType.Unknown)["line-color"] },
+        { label: "Metal", color: surfaceToStyle(SurfaceType.Metal)["line-color"] },
+        { label: "Wood", color: surfaceToStyle(SurfaceType.Wood)["line-color"] },
+        { label: "Unpaved", color: surfaceToStyle(SurfaceType.Unpaved)["line-color"] },
+        
+    ];
+
+    return (
+        <div className="mb-4 bg-white dark:bg-gray-800 p-3 rounded-lg">
+            <ul className="space-y-1">
+                {legendItems.map((item, index) => (
+                    <li key={index} className="flex items-center space-x-2">
+                        <span
+                            className="inline-block w-4 h-4 rounded"
+                            style={{ backgroundColor: item.color }}
+                        ></span>
+                        <span className="text-xs text-gray-700 dark:text-gray-300">{item.label}</span>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
 export function Timeline(props: { 
     route: GeoJSONRoute, 
     onHover: (way_points: number[]) => void,
@@ -201,7 +234,7 @@ export function Timeline(props: {
                 )}
             </div>
             
-            <div className={`space-y-3 transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
+            <div className={`space-y-3 transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0'} max-h-[30vh] overflow-y-auto`}>
                 {steps.map((step, index) => (
                     <div 
                         key={index} 
@@ -220,6 +253,8 @@ export function Timeline(props: {
                         </div>
                     </div>
                 ))}
+                <hr className="border-t border-gray-300 dark:border-gray-600 my-3" />
+                <Legend />
             </div>
         </div>
     );

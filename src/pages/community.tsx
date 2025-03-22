@@ -50,7 +50,7 @@ export default function CommunityPage() {
   , [geolocation]);
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-8 flex flex-col items-center">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col items-center">
       <div
         className="w-full bg-gradient-to-b from-[#5A3E36] to-[#8B5E4A] relative pb-8"
         style={{ clipPath: 'ellipse(70% 90% at 50% 0%)' }}

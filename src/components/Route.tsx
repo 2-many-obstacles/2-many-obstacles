@@ -4,12 +4,12 @@ import { use, useEffect } from "react";
 
 type ExtraInfoType = "surface" | "steepness" | "waytypes";
 
-function surfaceToStyle(surface: SurfaceType) {
+export function surfaceToStyle(surface: SurfaceType) {
   switch (surface) {
     // Unknown -- Has to be really visible e.g. red color
     case SurfaceType.Unknown:
       return {
-        "line-color": "#a020f0",
+        "line-color": "rgb(237, 0, 0)",
         "line-width": 4,
       };
     // Paved
@@ -17,43 +17,43 @@ function surfaceToStyle(surface: SurfaceType) {
     case SurfaceType.Concrete:
     case SurfaceType.Paved:
       return {
-        "line-color": "#800000",
+        "line-color": "rgb(5, 138, 5)",
         "line-width": 4,
       };
     // Paving Stones
     case SurfaceType.PavingStones:
       return {
-        "line-color": "#9A6324",
+        "line-color": "rgb(11, 229, 11)",
         "line-width": 4,
       };
     // GrassPaver
     case SurfaceType.GrassPaver:
       return {
-        "line-color": "#000075",
+        "line-color": "rgb(246, 250, 37)",
         "line-width": 4,
       };
     // Metal
     case SurfaceType.Metal:
       return {
-        "line-color": "#808000",
+        "line-color": "rgb(197, 198, 195)",
         "line-width": 4,
       };
     // Wood
     case SurfaceType.Wood:
       return {
-        "line-color": "#469990",
+        "line-color": "rgb(139, 69, 19)",
         "line-width": 4,
       };
     // Unpaved
     case SurfaceType.Unpaved:
       return {
-        "line-color": "#e6194B",
+        "line-color": "rgb(127, 174, 245)",
         "line-width": 4,
       };
     // Compacted Gravel
     case SurfaceType.CompactedGravel:
       return {
-        "line-color": "#f58231",
+        "line-color": "rgb(245, 208, 121)",
         "line-width": 4,
       };
     // Natural Ground
@@ -63,19 +63,19 @@ function surfaceToStyle(surface: SurfaceType) {
     case SurfaceType.Sand:
     case SurfaceType.Ice:
       return {
-        "line-color": "#ffe119",
+        "line-color": "rgb(208, 0, 0)",
         "line-width": 4,
       };
     // Gravel
     case SurfaceType.Gravel:
       return {
-        "line-color": "#bfef45",
+        "line-color": "rgb(234, 141, 59)",
         "line-width": 4,
       };
     default:
       console.log("Unknown surface type: ", surface);
       return {
-        "line-color": "#dcbeff",
+        "line-color": "rgb(182, 6, 6)",
         "line-width": 4,
       };
   }
@@ -101,6 +101,7 @@ function ExtraInfosVisuals(props: {
     const coordsWithFeature = coords.slice(value[0], value[1] + 1);
     return (
       <Source
+        key={`extra-info-source-${index}`}
         id={`extra-info-source-${index}`}
         type="geojson"
         data={{
@@ -115,7 +116,7 @@ function ExtraInfosVisuals(props: {
         <Layer
           id={`extra-info-${index}`}
           type="line"
-          paint={styling_function(value[2])}
+          paint={(styling_function as any)(value[2])}
         />
       </Source>
     );
