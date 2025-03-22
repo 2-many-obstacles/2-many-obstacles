@@ -91,6 +91,7 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
         } else {
             map.current?.flyTo({
                 center: originCoords,
+                zoom: 13,
                 speed: 3
             })
         }
