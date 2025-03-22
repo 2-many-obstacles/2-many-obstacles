@@ -13,26 +13,28 @@ const SearchBox = dynamic(() => import('@mapbox/search-js-react').then(mod => mo
 
 export const OPENROUTESERVICE_API_KEY = '5b3ce3597851110001cf6248978ef786663647a0950ff1f105ca227d';
 
-export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}) {
+export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute | undefined) => void}) {
     const map = useMap()
     const router = useRouter();
     const [specialNavigation, setSpecialNavigation] = useState(true);
 
     const { origin_lat, origin_lon, destination_lat, destination_lon } = router.query;
     const originCoords = useMemo<[number, number] | undefined>(() => {
-        if (typeof origin_lon === 'string' && typeof origin_lat === 'string') {
+        if (typeof origin_lon === 'string' && typeof origin_lat === 'string' && origin_lon && origin_lat) {
             return [parseFloat(origin_lon), parseFloat(origin_lat)];
         }
     }, [origin_lat, origin_lon]);
     const destinationCoords = useMemo<[number, number] | undefined>(() => {
-        if (typeof destination_lon === 'string' && typeof destination_lat === 'string') {
+        if (typeof destination_lon === 'string' && typeof destination_lat === 'string' && destination_lat && destination_lon) {
             return [parseFloat(destination_lon), parseFloat(destination_lat)];
         }
     }, [destination_lat, destination_lon]);
 
     useEffect(() => {
-        if (!originCoords)
+        if (!originCoords) {
+            props.onNavigate(undefined)
             return;
+        }
 
         if (destinationCoords) {
             const service = new Openrouteservice.Directions({ api_key: OPENROUTESERVICE_API_KEY })
@@ -96,9 +98,8 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
         }
     }, [originCoords, destinationCoords, specialNavigation]);
 
-    const updateQuery = useCallback((update: Record<string, string>) => {
-        const newQuery = { ...router.query, ...update }
-        router.replace({ pathname: router.pathname, query: newQuery })
+    const updateQuery = useCallback((update: (old: any) => Record<string, string | null>) => {
+        router.replace({ pathname: router.pathname, query: update(router.query) })
     }, [router])
 
     return (
@@ -108,15 +109,11 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                 onRetrieve={res => {
                     const feature = res.features[0]
                     const coords = feature.geometry.coordinates as [number, number]
-                    updateQuery({
-                        origin: feature.properties?.name || '',
-                        origin_lon: coords[0].toString(),
-                        origin_lat: coords[1].toString()
-                    })
+                    updateQuery(old => ({ ...old, origin: feature.properties?.name || '', origin_lon: coords[0].toString(), origin_lat: coords[1].toString() }))
                 }}
                 placeholder="Enter origin"
                 value={router.query.origin as string | undefined}
-                onChange={value => updateQuery({ origin: value })}
+                onChange={value => updateQuery(old => ({ ...old, origin: value }))}
                 options={{
                     proximity: map.current?.getCenter()
                 }}
@@ -131,6 +128,7 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                         search: originCoords ? '📍' : '🔍'
                     }
                 }}
+                onClear={() => updateQuery(() => ({}))}
             />
             
             {originCoords && (
@@ -141,15 +139,11 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                     onRetrieve={async res => {
                         const feature = res.features[0]
                         const destCoords = feature.geometry.coordinates as [number, number]
-                        updateQuery({
-                            destination: feature.properties?.name || '',
-                            destination_lon: destCoords[0].toString(),
-                            destination_lat: destCoords[1].toString()
-                        })
+                        updateQuery(old => ({ ...old, destination: feature.properties?.name || '', destination_lon: destCoords[0].toString(), destination_lat: destCoords[1].toString() }))
                     }}
                     placeholder="Enter destination"
                     value={router.query.destination as string | undefined}
-                    onChange={value => updateQuery({ destination: value })}
+                    onChange={value => updateQuery(old => ({ ...old, destination: value }))}
                     options={{ proximity: map.current?.getCenter() }}
                     theme={{
                         variables: {
@@ -162,6 +156,7 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                             search: '🏁'
                         },
                     }}
+                    onClear={() => updateQuery(({ origin, origin_lon, origin_lat }) => ({ origin, origin_lon, origin_lat }))}
                 />
                 </>
             )}
