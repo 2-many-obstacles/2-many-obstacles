@@ -16,7 +16,9 @@ export const OPENROUTESERVICE_API_KEY = '5b3ce3597851110001cf6248978ef786663647a
 export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute | undefined) => void}) {
     const map = useMap()
     const router = useRouter();
-    const [specialNavigation, setSpecialNavigation] = useState(true);
+    const useSettings = localStorage.getItem("settings") == "true"
+    const [specialNavigation, setSpecialNavigation] = useState(useSettings);
+    
 
     const { origin_lat, origin_lon, destination_lat, destination_lon } = router.query;
     const originCoords = useMemo<[number, number] | undefined>(() => {
@@ -38,11 +40,9 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute | undefin
 
         if (destinationCoords) {
             const service = new Openrouteservice.Directions({ api_key: OPENROUTESERVICE_API_KEY })
-            const useSettings = Boolean(localStorage.getItem("settings"))
-            const profile = useSettings && specialNavigation ? 'wheelchair' : 'foot-walking'
+            const profile = specialNavigation ? 'wheelchair' : 'foot-walking'
             let options = {}
-
-            if (useSettings && specialNavigation) {
+            if (specialNavigation) {
                 const maxSlope = parseInt(localStorage.getItem("max_slope")!)
                 const maxCurb = parseFloat(localStorage.getItem("max_curb")!)
                 const minWidth = parseInt(localStorage.getItem("min_width")!)
