@@ -4,7 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { NavigationBox } from "@/components/NavigationBox";
 import Help from '../components/Help';
 import { Route } from "@/components/Route";
-import { Timeline } from "@/components/Timeline";
+import { Timeline, GeoJSONRoute } from "@/components/Timeline";
 import Router from "next/router";
 
 export const MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoic2tuMHR0IiwiYSI6ImNrd25lM2prMjI1MGgyd21kbDRuOTRib24ifQ.JLDxqFK3HC9rKzQIBCxMWg";
@@ -29,7 +29,7 @@ export const useGeolocation = () => {
 
 export default function App() {
   const mapRef = React.useRef<MapRef>(null);
-  const [route, setRoute] = React.useState<any>();
+  const [route, setRoute] = React.useState<GeoJSONRoute>();
   const [highlightedNavigationStep, setHighlightedNavigationStep] = React.useState<number>();
   const geolocation = useGeolocation();
   const onMapLoad = React.useCallback(() => {

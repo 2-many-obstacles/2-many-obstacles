@@ -100,8 +100,10 @@ enum StepType {
     KeepRight = 13,
 }
 
+export type GeoJSONRoute = GeoJSON.FeatureCollection<GeoJSON.LineString, RouteProperties>;
+
 export function Timeline(props: { 
-    route: GeoJSON.FeatureCollection<GeoJSON.LineString, RouteProperties>, 
+    route: GeoJSONRoute, 
     onHover: (way_points: number[]) => void,
     onClick: (way_points: number) => void 
 }) {

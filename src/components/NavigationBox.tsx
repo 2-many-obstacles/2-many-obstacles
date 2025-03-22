@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { MAPBOX_ACCESS_TOKEN } from '../pages/index';
 import Openrouteservice from 'openrouteservice-js';
 import { useRouter } from 'next/router';
+import { GeoJSONRoute } from './Timeline';
 
 // @ts-expect-error weird error with mapbox types
 const SearchBox = dynamic(() => import('@mapbox/search-js-react').then(mod => mod.SearchBox), {
@@ -12,7 +13,7 @@ const SearchBox = dynamic(() => import('@mapbox/search-js-react').then(mod => mo
 
 export const OPENROUTESERVICE_API_KEY = '5b3ce3597851110001cf6248978ef786663647a0950ff1f105ca227d';
 
-export function NavigationBox(props: {onNavigate: (route: any) => void}) {
+export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}) {
     const map = useMap()
     const router = useRouter();
 
@@ -49,9 +50,11 @@ export function NavigationBox(props: {onNavigate: (route: any) => void}) {
                 },
                 format: 'geojson',
                 extra_info: ['surface', 'steepness', 'waytype']
-            }).then((response: any) => {
+            }).then((response: GeoJSONRoute) => {
                 props.onNavigate(response)
-                map.current?.fitBounds(response.bbox, { padding: { top: 120, left: 50, right: 50, bottom: 50 } })
+                if (response.bbox) {
+                    map.current?.fitBounds(response.bbox as any, { padding: { top: 120, left: 50, right: 50, bottom: 50 } })
+                }
             }).catch(console.error)
         } else {
             map.current?.flyTo({
@@ -86,6 +89,14 @@ export function NavigationBox(props: {onNavigate: (route: any) => void}) {
                     proximity: map.current?.getCenter()
                 }}
                 theme={{
+                    variables: {
+                        colorBackground: 'white',
+                        colorBackgroundHover: '#f8f9fa',
+                        colorBackgroundActive: '#f1f3f5',
+                        colorText: '#212529',
+                        colorPrimary: '#4285F4',
+                        borderRadius: '8px'
+                    },
                     icons: {
                         search: originCoords ? '📍' : '🔍'
                     }
@@ -109,6 +120,14 @@ export function NavigationBox(props: {onNavigate: (route: any) => void}) {
                     onChange={value => updateQuery({ destination: value })}
                     options={{ proximity: map.current?.getCenter() }}
                     theme={{
+                        variables: {
+                            colorBackground: 'white',
+                            colorBackgroundHover: '#f8f9fa',
+                            colorBackgroundActive: '#f1f3f5',
+                            colorText: '#212529',
+                            colorPrimary: '#4285F4',
+                            borderRadius: '8px'
+                        },
                         icons: {
                             search: '🏁'
                         }
