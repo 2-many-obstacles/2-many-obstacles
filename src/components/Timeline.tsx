@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 interface ExtraInfo<T> {
     values: [number, number, T][];
     summary: { value: T, distance: number, duration: number }[];
@@ -103,6 +105,7 @@ export function Timeline(props: {
     onHover: (way_points: number[]) => void,
     onClick: (way_points: number) => void 
 }) {
+    const [isExpanded, setIsExpanded] = useState(true);
     const properties = props.route.features[0].properties;
     const steps = properties.segments[0].steps;
     const totalDuration = properties.summary.duration;
@@ -151,12 +154,25 @@ export function Timeline(props: {
     };
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-lg rounded-t-xl p-4 max-h-[40vh] overflow-y-auto">
+        <div className={`fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-lg rounded-t-xl p-4 transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-[40vh]' : 'max-h-[4rem]'} overflow-hidden`}>
             <div className="mb-2">
                 <div className="flex items-center justify-between">
                     <h3 className="text-base font-medium text-gray-900 dark:text-white">
                         {formatDuration(totalDuration)} ({formatDistance(totalDistance)})
                     </h3>
+                    <button 
+                        onClick={() => setIsExpanded(!isExpanded)}
+                        className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+                    >
+                        <svg 
+                            className={`w-5 h-5 text-gray-600 dark:text-gray-400 transform transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}
+                            fill="none" 
+                            stroke="currentColor" 
+                            viewBox="0 0 24 24"
+                        >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
                 </div>
                 {properties.warnings?.length > 0 && (
                     <div className="mt-1 flex items-center text-amber-600 text-sm">
@@ -166,7 +182,7 @@ export function Timeline(props: {
                 )}
             </div>
             
-            <div className="space-y-3">
+            <div className={`space-y-3 transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0'}`}>
                 {steps.map((step, index) => (
                     <div 
                         key={index} 
