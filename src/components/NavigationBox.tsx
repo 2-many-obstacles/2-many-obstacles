@@ -70,7 +70,7 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
     }, [router])
 
     return (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col m-4 p-1 bg-white relative border-2 border-gray-100 rounded-lg">
             <SearchBox
                 accessToken={MAPBOX_ACCESS_TOKEN}
                 onRetrieve={res => {
@@ -90,12 +90,11 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                 }}
                 theme={{
                     variables: {
-                        colorBackground: 'white',
-                        colorBackgroundHover: '#f8f9fa',
-                        colorBackgroundActive: '#f1f3f5',
+                        colorBackground: 'transparent',
                         colorText: '#212529',
                         colorPrimary: '#4285F4',
-                        borderRadius: '8px'
+                        borderRadius: '0px',
+                        boxShadow: 'none'
                     },
                     icons: {
                         search: originCoords ? '📍' : '🔍'
@@ -104,6 +103,8 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
             />
             
             {originCoords && (
+                <>
+                <div className='m-1'/>
                 <SearchBox
                     accessToken={MAPBOX_ACCESS_TOKEN}
                     onRetrieve={async res => {
@@ -121,18 +122,18 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                     options={{ proximity: map.current?.getCenter() }}
                     theme={{
                         variables: {
-                            colorBackground: 'white',
-                            colorBackgroundHover: '#f8f9fa',
-                            colorBackgroundActive: '#f1f3f5',
+                            colorBackground: 'transparent',
                             colorText: '#212529',
                             colorPrimary: '#4285F4',
-                            borderRadius: '8px'
+                            borderRadius: '0px',
+                            boxShadow: 'none'
                         },
                         icons: {
                             search: '🏁'
                         }
                     }}
                 />
+                </>
             )}
         </div>
     );
