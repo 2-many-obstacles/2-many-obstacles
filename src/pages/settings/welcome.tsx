@@ -24,7 +24,7 @@ export default function Welcome(props: { onSubmit: (advancedMobility: boolean) =
                 id={option.value.toString()}
                 value={option.value.toString()}
                 checked={customizeMobility === option.value}
-                onClick={props.onSubmit.bind(null, option.value) as () => void}
+                onClick={() => props.onSubmit(option.value)}
                 className="hidden"
               />
               <label key={option.value.toString()} htmlFor={option.value.toString()} className="block w-full py-4 text-black text-center min-h-26 flex flex-col items-center justify-center" style={{ backgroundColor: customizeMobility !== option.value ? 'var(--color-300)' : 'var(--color-700)', color: customizeMobility !== option.value ? 'black' : 'white', borderTop: '1px solid #9E9E9E' }}>
