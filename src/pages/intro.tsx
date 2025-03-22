@@ -22,8 +22,8 @@ const Intro: React.FC = () => {
             marginBottom: '20px',
             }}
             >
-            Google Maps has a <span style={{ color: 'rgb(66, 133, 244)' }}>wheelchair</span> mode <br />
-            but one size <span style={{ color: 'rgb(66, 133, 244)' }}>doesn't</span> fit all!
+            Google Maps has a <span style={{ color: 'rgb(219, 125, 75)' }}>wheelchair</span> mode <br />
+            but one size <span style={{ color: ' rgb(219, 125, 75)' }}>doesn't</span> fit all!
             </div>
             <img
             src="/googlemaps_example.jpg"
@@ -44,7 +44,7 @@ const Intro: React.FC = () => {
                     fontSize: '1.2rem',
                     fontWeight: 'bold',
                     color: 'rgb(252, 252, 252)',
-                    backgroundColor: 'rgb(66, 133, 244)',
+                    backgroundColor: 'rgb(219, 125, 75)',
                     border: 'none',
                     borderRadius: '5px',
                     cursor: 'pointer',
