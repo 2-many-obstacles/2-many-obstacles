@@ -47,7 +47,7 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                 const surfaceCondition = localStorage.getItem("surface_condition")
                 const surfaceType = localStorage.getItem("surface_type")
                 const avoided_features = ["ferries","steps"]
-                if (Boolean(localStorage.getItem("steps"))) {
+                if (!Boolean(localStorage.getItem("steps"))) {
                     avoided_features.push("steps")
                 }
 
@@ -55,9 +55,9 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                     avoid_features: avoided_features,
                     profile_params: {
                         restrictions: {
-                            surface_type: "cobblestone:flattened",
+                            surface_type: surfaceType,
                             track_type: "grade1",
-                            smoothness_type: "good",
+                            smoothness_type: surfaceCondition,
                             maximum_sloped_kerb: maxCurb,
                             maximum_incline: maxSlope,
                             minimum_width: minWidth,
@@ -68,13 +68,12 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                 options = {
                     avoid_features: ["fords", "ferries"],
                     profile_params: {
-                        weightings: {
-                            green: 0.8,
-                            quiet: 1.0
-                        }
+                        
                     },
                 }
             }
+            console.log(options)
+            console.log(profile)
             
             service.calculate({
                 coordinates: [originCoords, destinationCoords],

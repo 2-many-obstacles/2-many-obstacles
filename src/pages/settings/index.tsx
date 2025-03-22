@@ -80,6 +80,7 @@ export default function Questionnaire() {
         if(next) {
           setStep(step + 1);
           console.log(condition);
+          localStorage.setItem("surface_condition", condition);
         }
         else{
           setStep(step - 1);
@@ -90,7 +91,7 @@ export default function Questionnaire() {
         if(next) {
           setStep(step + 1);
           console.log(surface_type);
-          localStorage.setItem("surface_type", surface_type.toString());}
+          localStorage.setItem("surface_type", surface_type);}
         else{
           setStep(step - 1);
         }
