@@ -1,6 +1,6 @@
 import { useMap } from 'react-map-gl/mapbox'
 import dynamic from 'next/dynamic';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { MAPBOX_ACCESS_TOKEN } from '../pages/index';
 import Openrouteservice from 'openrouteservice-js';
 import { useRouter } from 'next/router';
@@ -16,6 +16,7 @@ export const OPENROUTESERVICE_API_KEY = '5b3ce3597851110001cf6248978ef786663647a
 export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}) {
     const map = useMap()
     const router = useRouter();
+    const [specialNavigation, setSpecialNavigation] = useState(true);
 
     const { origin_lat, origin_lon, destination_lat, destination_lon } = router.query;
     const originCoords = useMemo<[number, number] | undefined>(() => {
@@ -38,7 +39,7 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
 
             service.calculate({
                 coordinates: [originCoords, destinationCoords],
-                profile: 'foot-walking',
+                profile: specialNavigation ? 'wheelchair' : 'foot-walking',
                 options: {
                     avoid_features: ["fords", "ferries"],
                     profile_params: {
@@ -53,7 +54,7 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
             }).then((response: GeoJSONRoute) => {
                 props.onNavigate(response)
                 if (response.bbox) {
-                    map.current?.fitBounds(response.bbox as any, { padding: { top: 120, left: 50, right: 50, bottom: 50 } })
+                    map.current?.fitBounds(response.bbox as [number, number, number, number], { padding: { top: 120, left: 50, right: 50, bottom: 50 } })
                 }
             }).catch(console.error)
         } else {
@@ -62,7 +63,7 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                 speed: 3
             })
         }
-    }, [originCoords, destinationCoords]);
+    }, [originCoords, destinationCoords, specialNavigation]);
 
     const updateQuery = useCallback((update: Record<string, string>) => {
         const newQuery = { ...router.query, ...update }
@@ -71,6 +72,17 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
 
     return (
         <div className="flex flex-col m-4 p-1 bg-white relative border-2 border-gray-100 rounded-lg">
+            <div className="flex items-center justify-between mb-2">
+                <label className="flex items-center space-x-2 cursor-pointer">
+                    <input
+                        type="checkbox"
+                        checked={specialNavigation}
+                        onChange={(e) => setSpecialNavigation(e.target.checked)}
+                        className="form-checkbox h-5 w-5 text-blue-600"
+                    />
+                    <span className="text-sm text-gray-700">Special Navigation</span>
+                </label>
+            </div>
             <SearchBox
                 accessToken={MAPBOX_ACCESS_TOKEN}
                 onRetrieve={res => {
