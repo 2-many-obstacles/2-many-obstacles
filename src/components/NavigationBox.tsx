@@ -49,7 +49,7 @@ export function NavigationBox(props: {onNavigate: (route: any) => void}) {
                 },
                 format: 'geojson',
                 extra_info: ['surface', 'steepness', 'waytype']
-            }).then(response => {
+            }).then((response: any) => {
                 props.onNavigate(response)
                 map.current?.fitBounds(response.bbox, { padding: { top: 120, left: 50, right: 50, bottom: 50 } })
             }).catch(console.error)
