@@ -101,6 +101,7 @@ function ExtraInfosVisuals(props: {
     const coordsWithFeature = coords.slice(value[0], value[1] + 1);
     return (
       <Source
+        key={`extra-info-source-${index}`}
         id={`extra-info-source-${index}`}
         type="geojson"
         data={{
@@ -115,7 +116,7 @@ function ExtraInfosVisuals(props: {
         <Layer
           id={`extra-info-${index}`}
           type="line"
-          paint={styling_function(value[2])}
+          paint={(styling_function as any)(value[2])}
         />
       </Source>
     );
