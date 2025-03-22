@@ -82,7 +82,7 @@ function surfaceToStyle(surface: SurfaceType) {
 }
 
 function steepnessToStyle(steepness: SteepnessType) {}
-function waytypeToStyle(waytype: WayType): {}
+function waytypeToStyle(waytype: WayType) {}
 
 function ExtraInfosVisuals(props: {
   route: GeoJSON.FeatureCollection<GeoJSON.LineString, RouteProperties>;
