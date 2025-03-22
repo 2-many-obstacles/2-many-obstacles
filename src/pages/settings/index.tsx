@@ -89,6 +89,7 @@ export default function Questionnaire() {
       {
         if(next) {
           setStep(step + 1);
+          console.log(surface_type);
           localStorage.setItem("surface_type", surface_type.toString());}
         else{
           setStep(step - 1);

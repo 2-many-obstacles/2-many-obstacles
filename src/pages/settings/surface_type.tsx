@@ -1,17 +1,16 @@
 import { useState } from "react";
 import NavigationButtons from "./navigation_buttons";
 
-export default function SurfaceType(props : {onSubmit : (next: boolean, surfaceType: number) => void}) {
-      const [surfaceType, setSurfaceType] = useState<number>(0)
+export default function SurfaceType(props : {onSubmit : (next: boolean, surfaceType: string) => void}) {
+    const [surfaceType, setSurfaceType] = useState<string>("sett")
     const surfaceTypeOptions = [
-      { value: 0, name: "Paved", description: "eg. asphalt, concrete"},
-      { value: 1, name: "Paving Stones", description: "usually possible with wheel chair (recommended)"},
-      { value: 2, name: "Cobble Stone", description: "difficult for wheel chairs and people with limited mobility"},
-      { value: 3, name: "Metal or Wood", description: ""},
-      { value: 4, name: "Unpaved", description: ""},
-      { value: 5, name: "Gravel", description: ""},
-      { value: 6, name: "Earth and Grass", description: ""},
-      { value: 7, name: "Allow All", description: ""}
+      { value: "concrete", name: "Paved", description: "eg. asphalt, concrete"}, 
+      { value: "sett", name: "Paving Stones", description: "usually possible with wheel chair (recommended)"},
+      { value: "cobblestone", name: "Cobble Stone", description: "difficult for wheel chairs and people with limited mobility"},
+      { value: "wood", name: "Metal or Wood", description: ""},
+      { value: "compacted", name: "Unpaved", description: ""},
+      { value: "pebblestone", name: "Gravel", description: ""},
+      { value: "grass", name: "Earth and Grass", description: ""}
     ];
   
   

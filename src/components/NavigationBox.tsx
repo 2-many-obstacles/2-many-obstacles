@@ -36,11 +36,36 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
 
         if (destinationCoords) {
             const service = new Openrouteservice.Directions({ api_key: OPENROUTESERVICE_API_KEY })
+            const useSettings = Boolean(localStorage.getItem("settings"))
+            const profile = useSettings || specialNavigation ? 'wheelchair' : 'foot-walking'
+            let options = {}
 
-            service.calculate({
-                coordinates: [originCoords, destinationCoords],
-                profile: specialNavigation ? 'wheelchair' : 'foot-walking',
-                options: {
+            if (useSettings) {
+                const maxSlope = parseInt(localStorage.getItem("max_slope")!)
+                const maxCurb = parseFloat(localStorage.getItem("max_curb")!)
+                const minWidth = parseInt(localStorage.getItem("min_width")!)
+                const surfaceCondition = localStorage.getItem("surface_condition")
+                const surfaceType = localStorage.getItem("surface_type")
+                const avoided_features = ["ferries","steps"]
+                if (Boolean(localStorage.getItem("steps"))) {
+                    avoided_features.push("steps")
+                }
+
+                options = {
+                    avoid_features: avoided_features,
+                    profile_params: {
+                        restrictions: {
+                            surface_type: "cobblestone:flattened",
+                            track_type: "grade1",
+                            smoothness_type: "good",
+                            maximum_sloped_kerb: maxCurb,
+                            maximum_incline: maxSlope,
+                            minimum_width: minWidth,
+                        }
+                    },
+                }
+            } else {
+                options = {
                     avoid_features: ["fords", "ferries"],
                     profile_params: {
                         weightings: {
@@ -48,7 +73,13 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                             quiet: 1.0
                         }
                     },
-                },
+                }
+            }
+            
+            service.calculate({
+                coordinates: [originCoords, destinationCoords],
+                profile: profile,
+                options: options,
                 format: 'geojson',
                 extra_info: ['surface', 'steepness', 'waytype']
             }).then((response: GeoJSONRoute) => {

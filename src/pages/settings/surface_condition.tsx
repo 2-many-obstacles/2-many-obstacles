@@ -1,49 +1,58 @@
 import { useState } from "react";
 
-export default function SurfaceCondition(props: { onSubmit: (next: boolean, condition: number) => void }) {
-  const [condition, setCondition] = useState<number>(7);
-  const [sliderValue, setSliderValue] = useState<number>(condition);
+export default function SurfaceCondition(props: { onSubmit: (next: boolean, condition: string) => void }) {
+  const [condition, setCondition] = useState<string>("intermediate");
+  const [sliderValue, setSliderValue] = useState<number>(6);
 
   type Label = {
     title: string;
     description: string; 
+    value: string;
   }
 
   const handleSliderChange = (value: number) => {
     setSliderValue(value);
-    setCondition(value);
+    setCondition(labels[8 - value].value);
   };
 
   const labels: Label[] = [{
     title: "Excellent",
-    description: "smooth asphalt or concrete"
+    description: "smooth asphalt or concrete",
+    value: "excellent"
   }, {
     title: "Good",
-    description: "asphalt with small cracks"
+    description: "asphalt with small cracks",
+    value: "good"
   }
   , {
     title: "Intermediate",
-    description: "asphalt with large cracks"
+    description: "asphalt with large cracks",
+    value: "intermediate"
   }
   , {
     title: "Bad",
-    description: "strongly damaged"
+    description: "strongly damaged",
+    value: "bad"
   }
   , {
     title: "Very Bad",
-    description: "unpaved roads with potholes ad rots"
+    description: "unpaved roads with potholes ad rots",
+    value: "very_bad"
   }
   , {
     title: "Horrible",
-    description: "even worse"
+    description: "even worse",
+    value: "horrible"
   }
   , {
     title: "Very Horrible",
-    description: "obstacles on the way"
+    description: "obstacles on the way",
+    value: "very_horrible"
   }
   , {
-    title: "Inpassable",
-    description: "big obstacles on the way"
+    title: "Impassable",
+    description: "big obstacles on the way",
+    value: "impassable"
   }
 
   ];
