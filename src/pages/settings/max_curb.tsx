@@ -2,7 +2,7 @@ import { useState } from "react";
 import NavigationButtons from "./navigation_buttons";
 
 export default function MaxSlope(props: { onSubmit: (next: boolean, curb: number) => void }) {
-  const [curb, setCurb] = useState<number>(6)
+  const [curb, setCurb] = useState<number>(0.06)
   const curbOptions = [
     { value: 0.03, display: "3 cm"},
     { value: 0.06, display: "6 cm"},
