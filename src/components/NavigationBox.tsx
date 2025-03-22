@@ -37,10 +37,10 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
         if (destinationCoords) {
             const service = new Openrouteservice.Directions({ api_key: OPENROUTESERVICE_API_KEY })
             const useSettings = Boolean(localStorage.getItem("settings"))
-            const profile = useSettings || specialNavigation ? 'wheelchair' : 'foot-walking'
+            const profile = useSettings && specialNavigation ? 'wheelchair' : 'foot-walking'
             let options = {}
 
-            if (useSettings) {
+            if (useSettings && specialNavigation) {
                 const maxSlope = parseInt(localStorage.getItem("max_slope")!)
                 const maxCurb = parseFloat(localStorage.getItem("max_curb")!)
                 const minWidth = parseInt(localStorage.getItem("min_width")!)
