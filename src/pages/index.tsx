@@ -5,7 +5,7 @@ import { NavigationBox } from "@/components/NavigationBox";
 import Help from '../components/Help';
 import { Route } from "@/components/Route";
 import { Timeline } from "@/components/Timeline";
-import { Position } from "@/components/Position";
+import Router from "next/router";
 
 export const MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoic2tuMHR0IiwiYSI6ImNrd25lM2prMjI1MGgyd21kbDRuOTRib24ifQ.JLDxqFK3HC9rKzQIBCxMWg";
 
@@ -37,7 +37,9 @@ export default function App() {
       return;
     mapRef.current?.flyTo({center: [geolocation.coords.longitude, geolocation.coords.latitude], zoom: 9, speed: 5});
   }, [geolocation]);
-  
+  if ("localStorage" in globalThis && localStorage.getItem("settings") === null) {
+    Router.push("/settings");
+  }
   return (
     <div className='w-full h-screen'>
       <Map

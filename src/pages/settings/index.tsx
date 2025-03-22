@@ -43,6 +43,10 @@ export default function Questionnaire() {
       {
         if(advancedMobility) {
           setStep(step + 1);}
+        else {
+          localStorage.setItem("settings", "true");
+          Router.push("/");
+        }
         }}/> },
     { id: 2, question: <MaxSlope onSubmit={(next, slope) => 
       {
@@ -103,6 +107,7 @@ export default function Questionnaire() {
         }}/> },
     { id: 8, question: <Thanks onSubmit={() => 
       {
+          localStorage.setItem("settings", "true");
           Router.push("/");}
       }/> },
   ];
