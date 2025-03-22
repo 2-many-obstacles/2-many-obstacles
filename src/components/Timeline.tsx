@@ -215,7 +215,6 @@ export function Timeline(props: {
             </div>
             
             <div className={`space-y-3 transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0'} max-h-[30vh] overflow-y-auto`}>
-                <Legend />
                 {steps.map((step, index) => (
                     <div 
                         key={index} 
@@ -234,6 +233,8 @@ export function Timeline(props: {
                         </div>
                     </div>
                 ))}
+                <hr className="border-t border-gray-300 dark:border-gray-600 my-3" />
+                <Legend />
             </div>
         </div>
     );
