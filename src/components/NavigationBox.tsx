@@ -103,17 +103,6 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
 
     return (
         <div className="flex flex-col m-4 p-1 bg-white relative border-2 border-gray-100 rounded-lg">
-            <div className="flex items-center justify-between mb-2">
-                <label className="flex items-center space-x-2 cursor-pointer">
-                    <input
-                        type="checkbox"
-                        checked={specialNavigation}
-                        onChange={(e) => setSpecialNavigation(e.target.checked)}
-                        className="form-checkbox h-5 w-5 text-blue-600"
-                    />
-                    <span className="text-sm text-gray-700">Special Navigation</span>
-                </label>
-            </div>
             <SearchBox
                 accessToken={MAPBOX_ACCESS_TOKEN}
                 onRetrieve={res => {
@@ -175,6 +164,26 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                     }}
                 />
                 </>
+            )}
+            {originCoords && destinationCoords && (
+                <div className="absolute -bottom-8 right-1 bg-white px-2 py-1 rounded-b-lg border-x-2 border-b-2 border-gray-100">
+                    <div className="flex items-center gap-2">
+                        <span className="text-xs text-gray-500">🚶‍♂️</span>
+                        <button
+                            onClick={() => setSpecialNavigation(!specialNavigation)}
+                            className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none ${
+                                specialNavigation ? 'bg-blue-600' : 'bg-gray-200'
+                            }`}
+                        >
+                            <span
+                                className={`inline-block h-3 w-3 transform rounded-full bg-white transition-transform ${
+                                    specialNavigation ? 'translate-x-4' : 'translate-x-1'
+                                }`}
+                            />
+                        </button>
+                        <span className="text-xs text-gray-500">⚙️</span>
+                    </div>
+                </div>
             )}
         </div>
     );
