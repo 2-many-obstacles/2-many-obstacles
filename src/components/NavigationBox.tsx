@@ -85,6 +85,11 @@ export function NavigationBox(props: {onNavigate: (route: any) => void}) {
                 options={{
                     proximity: map.current?.getCenter()
                 }}
+                theme={{
+                    icons: {
+                        search: originCoords ? '📍' : '🔍'
+                    }
+                }}
             />
             
             {originCoords && (
@@ -103,6 +108,11 @@ export function NavigationBox(props: {onNavigate: (route: any) => void}) {
                     value={router.query.destination as string | undefined}
                     onChange={value => updateQuery({ destination: value })}
                     options={{ proximity: map.current?.getCenter() }}
+                    theme={{
+                        icons: {
+                            search: '🏁'
+                        }
+                    }}
                 />
             )}
         </div>
