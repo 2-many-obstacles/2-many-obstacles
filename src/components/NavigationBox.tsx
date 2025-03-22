@@ -90,7 +90,6 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                 }}
                 theme={{
                     variables: {
-                        colorBackground: 'transparent',
                         colorText: '#212529',
                         colorPrimary: '#4285F4',
                         borderRadius: '0px',
@@ -122,7 +121,6 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                     options={{ proximity: map.current?.getCenter() }}
                     theme={{
                         variables: {
-                            colorBackground: 'transparent',
                             colorText: '#212529',
                             colorPrimary: '#4285F4',
                             borderRadius: '0px',
@@ -130,7 +128,7 @@ export function NavigationBox(props: {onNavigate: (route: GeoJSONRoute) => void}
                         },
                         icons: {
                             search: '🏁'
-                        }
+                        },
                     }}
                 />
                 </>
