@@ -15,7 +15,7 @@ export default function MaxSlope(props: { onSubmit: (next: boolean, curb: number
       <h2 className="text-4xl font-black block pt-10 px-6">Maximal Curb Height</h2>
       <div className="mt-4 flex-1 flex flex-col">
         <p className="mb-2 text-lg font-medium px-6">Select the maximal curb height
-          <br />that you are comfortable with</p>
+          <br />that you are comfortable with:</p>
         <div className="mt-auto">
           {curbOptions.map((option) => (
             <>

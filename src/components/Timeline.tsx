@@ -103,16 +103,17 @@ export type GeoJSONRoute = GeoJSON.FeatureCollection<GeoJSON.LineString, RoutePr
 
 function Legend() {
     const legendItems = [
-        { label: "Unknown", color: surfaceToStyle(SurfaceType.Unknown)["line-color"] },
         { label: "Paved (Asphalt/Concrete)", color: surfaceToStyle(SurfaceType.Paved)["line-color"] },
         { label: "Paving Stones", color: surfaceToStyle(SurfaceType.PavingStones)["line-color"] },
         { label: "GrassPaver", color: surfaceToStyle(SurfaceType.GrassPaver)["line-color"] },
+        { label: "Compacted Gravel", color: surfaceToStyle(SurfaceType.CompactedGravel)["line-color"] },
+        { label: "Gravel", color: surfaceToStyle(SurfaceType.Gravel)["line-color"] },
+        { label: "Natural Ground (Dirt/Grass/Sand/Ice)", color: surfaceToStyle(SurfaceType.Ground)["line-color"] },
+        { label: "Unknown", color: surfaceToStyle(SurfaceType.Unknown)["line-color"] },
         { label: "Metal", color: surfaceToStyle(SurfaceType.Metal)["line-color"] },
         { label: "Wood", color: surfaceToStyle(SurfaceType.Wood)["line-color"] },
         { label: "Unpaved", color: surfaceToStyle(SurfaceType.Unpaved)["line-color"] },
-        { label: "Compacted Gravel", color: surfaceToStyle(SurfaceType.CompactedGravel)["line-color"] },
-        { label: "Natural Ground (Dirt/Grass/Sand/Ice)", color: surfaceToStyle(SurfaceType.Ground)["line-color"] },
-        { label: "Gravel", color: surfaceToStyle(SurfaceType.Gravel)["line-color"] },
+        
     ];
 
     return (

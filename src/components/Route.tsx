@@ -9,7 +9,7 @@ export function surfaceToStyle(surface: SurfaceType) {
     // Unknown -- Has to be really visible e.g. red color
     case SurfaceType.Unknown:
       return {
-        "line-color": "rgb(182, 6, 6)",
+        "line-color": "rgb(237, 0, 0)",
         "line-width": 4,
       };
     // Paved
@@ -47,7 +47,7 @@ export function surfaceToStyle(surface: SurfaceType) {
     // Unpaved
     case SurfaceType.Unpaved:
       return {
-        "line-color": "rgb(33, 254, 247)",
+        "line-color": "rgb(127, 174, 245)",
         "line-width": 4,
       };
     // Compacted Gravel
@@ -63,7 +63,7 @@ export function surfaceToStyle(surface: SurfaceType) {
     case SurfaceType.Sand:
     case SurfaceType.Ice:
       return {
-        "line-color": "color:rgb(233, 63, 63)",
+        "line-color": "rgb(208, 0, 0)",
         "line-width": 4,
       };
     // Gravel
