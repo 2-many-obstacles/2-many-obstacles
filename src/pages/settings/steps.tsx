@@ -3,38 +3,40 @@ import { useState } from "react";
 export default function Steps(props: { onSubmit: (next: boolean, allowSteps: boolean) => void }) {
   const [allowSteps, setAllowSteps] = useState<boolean>(false);
 
+  const allowStepsOptions = [
+    { value: true, description: "I want to have steps in my route." },
+    { value: false, description: "I don't want to have steps in my route." },
+  ];
+
   return (
-    <div className="p-4">
-      <h2 className="text-lg font-bold">Steps</h2>
-      <p className="mb-2 text-sm font-medium">
-        Is it okay to have steps in your route?
-      </p>
-      <div className="mt-4">
-        <div className="flex space-x-4">
-        <label className="flex items-center">
-            <input
-              type="radio"
-              name="agreement"
-              value="false"
-              defaultChecked // Preselect "No"
-              onChange={() => setAllowSteps(false)} // Update state
-              className="mr-2"
-            />
-            No
-          </label>
-          <label className="flex items-center">
-            <input type="radio" name="agreement" value="yes" className="mr-2"  onChange={() => setAllowSteps(true)}/>
-            Yes
-          </label>
+    <div className="flex flex-col min-h-screen">
+      <h2 className="text-4xl font-black block pt-10 px-6">Steps</h2>
+      <div className="mt-4 flex-1 flex flex-col">
+        <p className="mb-2 text-lg font-medium px-6">
+          Is it okay to have steps in your route?</p>
+        <div className="mt-auto">
+          {allowStepsOptions.map((option) => (
+            <>
+              <input
+                type="radio"
+                name="slope"
+                id={option.value.toString()}
+                value={option.value.toString()}
+                checked={allowSteps === option.value}
+                onChange={() => setAllowSteps(option.value)}
+                className="hidden"
+              />
+              <label key={option.value.toString()} htmlFor={option.value.toString()} className="block w-full py-4 text-black text-center min-h-26 flex flex-col items-center justify-center" style={{ backgroundColor: allowSteps !== option.value ? 'var(--color-300)' : 'var(--color-500)', borderTop: '1px solid #9E9E9E' }}>
+                <p className="text-lg font-bold">{option.value ? 'yes' : 'no'}</p>
+                <p className="text-sm" dangerouslySetInnerHTML={{ __html: option.description }} />
+              </label>
+            </>
+          ))}
         </div>
-      </div>
-      <div>
-        <div className="fixed bottom-4 left-0 right-0 flex justify-center gap-16 px-4">
-          <div className="mt-4 flex justify-between">
-              <button className="p-2 bg-green-500 text-white rounded" onClick={() => props.onSubmit(true, allowSteps)}>
-              Start Planning Your Route!
-              </button>
-          </div>
+        <div className="flex flex-col justify-center">
+          <button className="w-full py-4 text-white" style={{ backgroundColor: 'var(--color-700)' }} onClick={() => props.onSubmit(true, allowSteps)}>
+            Next
+          </button>
         </div>
       </div>
     </div>
