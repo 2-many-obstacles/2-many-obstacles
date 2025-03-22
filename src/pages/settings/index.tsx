@@ -44,7 +44,13 @@ export default function Questionnaire() {
           setStep(step + 1);
         }
         else {
-          localStorage.setItem("settings", "true");
+          localStorage.setItem("settings", "false");
+          localStorage.setItem("max_slope", "6");
+          localStorage.setItem("max_curb", "0.06");
+          localStorage.setItem("min_width", "2");
+          localStorage.setItem("surface_condition", "intermediate");
+          localStorage.setItem("surface_type", "sett");
+          localStorage.setItem("allowSteps", "false");
           Router.push("/");
         }
       }} />
