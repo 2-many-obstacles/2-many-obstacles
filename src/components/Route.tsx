@@ -42,7 +42,7 @@ export function Route(props: {
                 />
             </Source>
             <Marker longitude={startPosition[0]} latitude={startPosition[1]}>
-                <div className="text-2xl">🚗</div>
+                <div className="text-2xl">📍</div>
             </Marker>
             <Marker longitude={endPosition[0]} latitude={endPosition[1]}>
                 <div className="text-2xl">🏁</div>
