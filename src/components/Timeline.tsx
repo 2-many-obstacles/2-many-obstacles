@@ -5,28 +5,26 @@ interface ExtraInfo<T> {
     summary: { value: T, distance: number, duration: number }[];
 }
 
-enum SurfaceType {
+export enum SurfaceType {
     Unknown = 0,
     Paved = 1,
     Unpaved = 2,
     Asphalt = 3,
     Concrete = 4,
-    Cobblestone = 5,
     Metal = 6,
     Wood = 7,
     CompactedGravel = 8,
-    FineGravel = 9,
-    Dirt = 10,
-    Ground = 11,
-    Ice = 12,
-    PavingStones = 13,
-    Sand = 14,
-    Woodchips = 15,
-    Grass = 16,
-    GrassPaver = 17,
+    Gravel = 10,
+    Dirt = 11,
+    Ground = 12,
+    Ice = 13,
+    PavingStones = 14,
+    Sand = 15,
+    Grass = 17,
+    GrassPaver = 18,
 }
 
-enum WayType {
+export enum WayType {
     Unknown = 0,
     StateRoad = 1,
     Road = 2,
@@ -40,7 +38,7 @@ enum WayType {
     Construction = 10,
 }
 
-enum SteepnessType {
+export enum SteepnessType {
     Decline16 = -5,
     Decline10 = -4,
     Decline7 = -3,
