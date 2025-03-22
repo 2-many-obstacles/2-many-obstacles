@@ -1,3 +1,4 @@
+import NavigationButtons from "./navigation_buttons";
 import { useState } from "react";
 
 export default function SurfaceCondition(props: { onSubmit: (next: boolean, condition: string) => void }) {
@@ -6,7 +7,7 @@ export default function SurfaceCondition(props: { onSubmit: (next: boolean, cond
 
   type Label = {
     title: string;
-    description: string; 
+    description: string;
     value: string;
   }
 
@@ -24,32 +25,32 @@ export default function SurfaceCondition(props: { onSubmit: (next: boolean, cond
     description: "asphalt with small cracks",
     value: "good"
   }
-  , {
+    , {
     title: "Intermediate",
     description: "asphalt with large cracks",
     value: "intermediate"
   }
-  , {
+    , {
     title: "Bad",
     description: "strongly damaged",
     value: "bad"
   }
-  , {
+    , {
     title: "Very Bad",
     description: "unpaved roads with potholes ad rots",
     value: "very_bad"
   }
-  , {
+    , {
     title: "Horrible",
     description: "even worse",
     value: "horrible"
   }
-  , {
+    , {
     title: "Very Horrible",
     description: "obstacles on the way",
     value: "very_horrible"
   }
-  , {
+    , {
     title: "Impassable",
     description: "big obstacles on the way",
     value: "impassable"
@@ -58,20 +59,19 @@ export default function SurfaceCondition(props: { onSubmit: (next: boolean, cond
   ];
 
   return (
-    <div className="p-4">
-      <h2 className="text-lg font-bold">Surface Condition</h2>
-      <p className="mb-2 text-sm font-medium">
-        Chose minimum surface condition:<br />
-        All surfaces on the route will be at least in this condition. <br />
-        For wheelchair users or people with limited mobility, we recommend a minimum surface condition of good or Intermediate.
-      </p>
-      <div className="flex items-center mt-6">
-        
-        
-        <style>
-          {`
+    <div className="flex flex-col min-h-screen">
+      <h2 className="text-4xl font-black block pt-10 px-6">Surface Condition</h2>
+      <div className="mt-4 flex-1 flex flex-col">
+        <p className="mb-2 text-lg font-medium px-6">
+          Choose minimum surface condition:<br />
+          All surfaces on the route will be at least in this condition. <br />
+          For wheelchair users or people with limited mobility, we recommend a minimum surface condition of good or Intermediate.
+        </p>
+        <div className="flex items-center mt-12" style={{ transform: 'translateX(-280px)' }}>
+          <style>
+            {`
             input[type="range"] {
-              transform-origin: 250px 110px;
+              transform-origin: 255px 105px;
             }
             input[type="range"]::-webkit-slider-runnable-track {
               background: linear-gradient(to left, #4caf50, #ffeb3b, #f44336);
@@ -101,40 +101,39 @@ export default function SurfaceCondition(props: { onSubmit: (next: boolean, cond
             input[type="range"]:focus {
               outline: none;
             }
-          `}  
-        </style>
+          `}
+          </style>
 
-    
-      <div className="flex items-stretch">
-      <input
-          type="range"
-          min="1"
-          max="8"
-          value={sliderValue}
-          onChange={(e) => handleSliderChange(Number(e.target.value))} // Convert to number
-            className="w-90 h-90 -rotate-90 "
-          />
-        <div className="flex flex-col justify-between">
-          {labels.map((label, index) => (
-            <div key={index} className="text-xs text-gray-200">
-              <div className="text-sm font-bold">{label.title}</div>
-              <div className="text-xs">{label.description} </div>
+
+          <div className="flex items-stretch">
+            <input
+              type="range"
+              min="1"
+              max="8"
+              value={sliderValue}
+              onChange={(e) => handleSliderChange(Number(e.target.value))} // Convert to number
+              className="w-110 h-90 -rotate-90 "
+            />
+            <div className="flex flex-col justify-between">
+              {labels.map((label, index) => (
+                <div key={index} className="text-xs text-gray-200">
+                  <div className="text-sm font-bold">{label.title}</div>
+                  <div className="text-xs">{label.description} </div>
+                </div>
+              ))}
+
             </div>
-          ))}
 
+          </div>
         </div>
-
-      </div>
-      </div>
-      <div className="mt-4 flex justify-between">
-        <button className="p-2 bg-red-500 text-white rounded" onClick={() => props.onSubmit(false, condition)}>
-          Back
-        </button>
-        <button className="p-2 bg-blue-500 text-white rounded" onClick={() => props.onSubmit(true, condition)}>
-          Next
-        </button>
+        <div style={{ marginTop: 'auto' }}>
+          <NavigationButtons
+            onBack={() => props.onSubmit(false, condition)}
+            onNext={() => props.onSubmit(true, condition)}
+          />
+        </div>
       </div>
     </div>
-  
+
   );
 }

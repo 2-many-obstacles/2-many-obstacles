@@ -35,7 +35,7 @@ export default function App() {
   const onMapLoad = React.useCallback(() => {
     if (!geolocation)
       return;
-    mapRef.current?.flyTo({center: [geolocation.coords.longitude, geolocation.coords.latitude], zoom: 9, speed: 5});
+    mapRef.current?.flyTo({center: [geolocation.coords.longitude, geolocation.coords.latitude], zoom: 14, speed: 5});
   }, [geolocation]);
   if ("localStorage" in globalThis && localStorage.getItem("settings") === null) {
     Router.push("/settings");
