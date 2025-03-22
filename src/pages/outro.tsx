@@ -2410,21 +2410,26 @@ const QrCode = (props: React.SVGProps<SVGSVGElement>) => (
 export default function Outro() {
     return (
         <div className="w-full h-screen flex items-center justify-center bg-white">
-            <div className="w-full max-w-7xl h-full flex -mt-16">
+            <div className="w-full h-full flex -mt-16">
                 {/* Left side - QR Code */}
-                <div className="w-1/3 h-full flex items-center justify-center p-8">
-                    <div className="w-128 h-128 rounded-lg flex items-center justify-center">
+                <div className="w-2/5 h-full flex items-center justify-center p-8">
+                    <div className="w-256 h-256 rounded-lg flex items-center justify-center">
                         <QrCode />
                     </div>
                 </div>
 
                 {/* Right side - Bullet List */}
-                <div className="w-2/3 h-full flex items-center justify-center p-8">
-                    <h1></h1>
+                <div className="w-3/5 h-full flex flex-col items-center justify-center p-8">
+                    <h1 className="text-6xl font-bold mb-8">2 many obstacles</h1>
                     <ul className="space-y-6 text-4xl font-medium list-disc pl-8">
-                        <li>First bullet point</li>
-                        <li>Second bullet point</li>
-                        <li>Third bullet point</li>
+                        <li>Based on OpenStreetMap and Open Routing Service</li>
+                        <li>github.com/2-many-obstacles/2-many-obstacles</li>
+                        <li>Future improvements:
+                            <ul className="mt-4 space-y-4 text-4xl list-disc pl-8">
+                                <li>regeneration breaks</li>
+                                <li>improve map data based on detours and aborted routes</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
