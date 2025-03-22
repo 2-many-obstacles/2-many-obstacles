@@ -11,19 +11,10 @@ export default function Outro() {
 
         {/* Right side - Bullet List */}
         <div className="w-1/2 h-full flex items-center justify-center p-8">
-          <ul className="space-y-6 text-4xl font-medium">
-            <li className="flex items-center">
-              <span className="mr-4">•</span>
-              First bullet point
-            </li>
-            <li className="flex items-center">
-              <span className="mr-4">•</span>
-              Second bullet point
-            </li>
-            <li className="flex items-center">
-              <span className="mr-4">•</span>
-              Third bullet point
-            </li>
+          <ul className="space-y-6 text-4xl font-medium list-disc pl-8">
+            <li>First bullet point</li>
+            <li>Second bullet point</li>
+            <li>Third bullet point</li>
           </ul>
         </div>
       </div>
