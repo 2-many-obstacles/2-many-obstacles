@@ -2426,8 +2426,8 @@ export default function Outro() {
                         <li>github.com/2-many-obstacles/2-many-obstacles</li>
                         <li>Future improvements:
                             <ul className="mt-4 space-y-4 text-4xl list-disc pl-8">
-                                <li>regeneration breaks</li>
-                                <li>improve map data based on detours and aborted routes</li>
+                                <li>Regeneration breaks</li>
+                                <li>Improve map data based on detours and aborted routes</li>
                             </ul>
                         </li>
                     </ul>
