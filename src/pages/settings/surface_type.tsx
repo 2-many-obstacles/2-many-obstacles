@@ -4,7 +4,7 @@ import NavigationButtons from "./navigation_buttons";
 export default function SurfaceType(props : {onSubmit : (next: boolean, surfaceType: string) => void}) {
     const [surfaceType, setSurfaceType] = useState<string>("sett")
     const surfaceTypeOptions = [
-      { value: "concrete", name: "Paved", description: "eg. asphalt, concrete"}, 
+      { value: "concrete:lanes", name: "Paved", description: "eg. asphalt, concrete"}, 
       { value: "sett", name: "Paving Stones", description: "usually possible with wheel chair (recommended)"},
       { value: "cobblestone", name: "Cobble Stone", description: "difficult for wheel chairs and people with limited mobility"},
       { value: "wood", name: "Metal or Wood", description: ""},
