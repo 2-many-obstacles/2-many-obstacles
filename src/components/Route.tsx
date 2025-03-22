@@ -4,7 +4,7 @@ import { use, useEffect } from "react";
 
 type ExtraInfoType = "surface" | "steepness" | "waytypes";
 
-function surfaceToStyle(surface: SurfaceType) {
+export function surfaceToStyle(surface: SurfaceType) {
   switch (surface) {
     // Unknown -- Has to be really visible e.g. red color
     case SurfaceType.Unknown:
