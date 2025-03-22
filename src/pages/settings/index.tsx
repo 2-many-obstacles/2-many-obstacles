@@ -26,7 +26,6 @@ import MinWidth from "./min_width";
 import SurfaceCondition from "./surface_condition";
 import SurfaceType from "./surface_type";
 import Steps from "./steps";
-import Thanks from "./thanks";
 import Router from "next/router";
 
 interface Question {
@@ -98,18 +97,14 @@ export default function Questionnaire() {
     { id: 7, question: <Steps onSubmit={(next, allowSteps) => 
       {
         if(next) {
-          setStep(step + 1);
           localStorage.setItem("allowSteps", allowSteps.toString());
+          localStorage.setItem("settings", "true");
+          Router.push("/");
         }
         else{
           setStep(step - 1);
         }
         }}/> },
-    { id: 8, question: <Thanks onSubmit={() => 
-      {
-          localStorage.setItem("settings", "true");
-          Router.push("/");}
-      }/> },
   ];
 
 

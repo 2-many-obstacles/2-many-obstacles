@@ -1,5 +1,4 @@
 import { useState } from "react";
-import NavigationButtons from "./navigation_buttons";
 
 export default function Steps(props: { onSubmit: (next: boolean, allowSteps: boolean) => void }) {
   const [allowSteps, setAllowSteps] = useState<boolean>(false);
@@ -30,10 +29,13 @@ export default function Steps(props: { onSubmit: (next: boolean, allowSteps: boo
         </div>
       </div>
       <div>
-       <NavigationButtons
-               onBack={() => props.onSubmit(false, allowSteps)}
-               onNext={() => props.onSubmit(true, allowSteps)}
-             />
+        <div className="fixed bottom-4 left-0 right-0 flex justify-center gap-16 px-4">
+          <div className="mt-4 flex justify-between">
+              <button className="p-2 bg-green-500 text-white rounded" onClick={() => props.onSubmit(true, allowSteps)}>
+              Start Planning Your Route!
+              </button>
+          </div>
+        </div>
       </div>
     </div>
   );
