@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import Help from './Help';
+import Phone from './icons/Phone';
+import Settings from './icons/Settings';
 
 interface ExtraInfo<T> {
     values: [number, number, T][];
@@ -154,7 +157,23 @@ export function Timeline(props: {
     };
 
     return (
-        <div className={`fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-lg rounded-t-xl p-4 transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-[40vh]' : 'max-h-[4rem]'} overflow-hidden`}>
+        <div className={`fixed overflow-visible bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-lg rounded-t-xl p-4 transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-[40vh]' : 'max-h-[4rem]'} overflow-hidden`}>
+            <div
+                className={`absolute transition-all duration-300 top-[-10vh] right-12`}
+            >
+                <Help />
+            </div>
+            <div
+                className={`absolute transition-all duration-300 top-[-10vh] left-12`}
+            >
+                <button
+                    onClick={() => window.location.href = '/settings'}
+                    className="z-999 p-4 cursor-pointer text-white rounded-full shadow-lg"
+                    style={{ backgroundColor: "rgb(219, 125, 75)" }}
+                    >
+                    <Settings />
+                </button>
+            </div>
             <div className="mb-2">
                 <div className="flex items-center justify-between">
                     <h3 className="text-base font-medium text-gray-900 dark:text-white">

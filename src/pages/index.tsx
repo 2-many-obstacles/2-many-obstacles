@@ -7,6 +7,7 @@ import { Route } from "@/components/Route";
 import { Timeline, GeoJSONRoute } from "@/components/Timeline";
 import Router from "next/router";
 import Phone from "../components/icons/Settings";
+import Settings from "../components/icons/Settings";
 
 export const MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoic2tuMHR0IiwiYSI6ImNrd25lM2prMjI1MGgyd21kbDRuOTRib24ifQ.JLDxqFK3HC9rKzQIBCxMWg";
 
@@ -50,7 +51,24 @@ export default function App() {
         style={{width: "100%", height: "100%"}}
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
-        <Help />
+        {!route && (
+          <div className="absolute bottom-12 right-12">
+            <Help />
+          </div>
+        )}
+        {!route && (
+          <div
+          className={`absolute transition-all duration-300 bottom-12 left-12`}
+          >
+          <button
+              onClick={() => window.location.href = '/settings'}
+              className="z-999 p-4 cursor-pointer text-white rounded-full shadow-lg"
+              style={{ backgroundColor: "rgb(219, 125, 75)" }}
+              >
+              <Settings />
+          </button>
+      </div>
+        )}
         <NavigationBox onNavigate={route => {setRoute(route)}}/>
         {route && <Route route={route} highlightedStep={highlightedNavigationStep} />}
         {route && <Timeline route={route} onHover={console.log} onClick={step => {setHighlightedNavigationStep(step)}} />}
@@ -72,13 +90,6 @@ export default function App() {
           </Source>
         )}
       </Map>
-      <button
-      onClick={() => window.location.href = '/settings'}
-      className="z-999 fixed bottom-12 left-12 p-4 cursor-pointer text-white rounded-full shadow-lg"
-      style={{ backgroundColor: "rgb(219, 125, 75)" }}
-      >
-      <Phone />
-    </button>
     </div>
   );
 }
