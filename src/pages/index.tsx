@@ -9,7 +9,7 @@ import Router from "next/router";
 import Phone from "../components/icons/Settings";
 import Settings from "../components/icons/Settings";
 
-export const MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoic2tuMHR0IiwiYSI6ImNrd25lM2prMjI1MGgyd21kbDRuOTRib24ifQ.JLDxqFK3HC9rKzQIBCxMWg";
+export const MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoic2tuMHR0IiwiYSI6ImNtOGxmOGVvOTFhNnQya3FyZWhna2VyaTkifQ.ZsQoZSiVbz4t57vRjI3HTg";
 
 export const useGeolocation = () => {
   const [position, setPosition] = React.useState<GeolocationPosition>();
